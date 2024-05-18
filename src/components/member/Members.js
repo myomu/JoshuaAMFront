@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import CreateMember from "./CreateMember";
@@ -29,6 +28,8 @@ function Members() {
     setEndDate(value);
   };
 
+  const Server = `${process.env.REACT_APP_Server}`;
+
   useEffect(() => {
     const params = {
       startDate: startDate != null ? dayjs(startDate).format("YYYY-MM-DDTHH:mm") : null,
@@ -36,7 +37,7 @@ function Members() {
     };
 
     api
-      .get("http://localhost:8080/api/members", { params })
+      .get(`${Server}/api/members`, { params })
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -56,7 +57,7 @@ function Members() {
     };
 
     api
-      .post("http://localhost:8080/api/members/delete", formData, {
+      .post(`${Server}/api/members/delete`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

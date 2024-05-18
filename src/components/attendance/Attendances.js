@@ -10,10 +10,10 @@ import api from "../../apis/api";
 function Attendances() {
   const [attendances, setAttendances] = useState("");
   const [attendanceIds, setAttendanceIds] = useState([]);
-
+  const Server = `${process.env.REACT_APP_Server}`;
   useEffect(() => {
     api
-      .get("http://localhost:8080/api/attendances")
+      .get(`${Server}/api/attendances`)
       .then((response) => {
         setAttendances(response.data);
         console.log(response.data);
@@ -31,7 +31,7 @@ function Attendances() {
     };
 
     api
-      .post("http://localhost:8080/api/attendances", formData, {
+      .post(`${Server}/api/attendances`, formData, {
         headers: {
           "Content-Type": "application/json",
         }

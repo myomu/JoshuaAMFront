@@ -2,7 +2,6 @@ import { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import CreateGroup from "./CreateGroup";
 import { Button, Form, Table } from "react-bootstrap";
-import axios from "axios";
 import EditGroup from "./EditGroup";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
 import { Checkbox } from "../checkbox/Checkbox";
@@ -13,10 +12,11 @@ function Groups() {
 
   const [groups, setGroups] = useState("");
   const [groupIds, setGroupIds] = useState([]);
+  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get("/api/groups")
+      .get(`${Server}/api/groups`)
       .then((response) => {
         setGroups(response.data);
         console.log("---");
@@ -36,7 +36,7 @@ function Groups() {
     };
 
     api
-      .post("http://localhost:8080/api/groups/delete", formData, {
+      .post(`${Server}/api/groups/delete`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

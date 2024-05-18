@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,13 +23,15 @@ function EditMember() {
     setAge(e.target.value);
   };
 
+  const Server = `${process.env.REACT_APP_Server}`;
+
   useEffect(() => {
-    api.get("http://localhost:8080/api/groups")
+    api.get(`${Server}/api/groups`)
     .then((response) => {
       setGroups(response.data);
     })
     api
-      .get("http://localhost:8080/api/members/edit/" + memberId)
+      .get(`${Server}/api/members/edit/` + memberId)
       .then((response) => {
         setName(response.data.name);
         setAge(response.data.age);
@@ -58,7 +59,7 @@ function EditMember() {
     formData.append("group", group);
 
     api
-      .post("http://localhost:8080/api/members/edit/" + memberId, formData, {
+      .post(`${Server}/api/members/edit/` + memberId, formData, {
         headers: {
           "Content-Type": "application/json",
         },

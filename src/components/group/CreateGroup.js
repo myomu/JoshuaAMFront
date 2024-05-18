@@ -11,6 +11,8 @@ function CreateGroup() {
     setName(e.target.value);
   };
 
+  const Server = `${process.env.REACT_APP_Server}`;
+
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
@@ -27,7 +29,7 @@ function CreateGroup() {
     }
 
     api
-      .post("http://localhost:8080/api/groups/create", formData, {
+      .post(`${Server}/api/groups/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -20,9 +19,11 @@ function CreateMember() {
     setAge(e.target.value);
   };
 
+  const Server = `${process.env.REACT_APP_Server}`;
+
   useEffect(() => {
     api
-      .get("http://localhost:8080/api/groups")
+      .get(`${Server}/api/groups`)
       .then((response) => {
         setGroups(response.data);
         console.log("---");
@@ -56,7 +57,7 @@ function CreateMember() {
     }
 
     api
-      .post("http://localhost:8080/api/members/create", formData, {
+      .post(`${Server}/api/members/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

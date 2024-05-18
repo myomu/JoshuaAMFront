@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,10 +12,11 @@ function EditGroup() {
   };
 
   const [validated, setValidated] = useState(false);
+  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get("http://localhost:8080/api/groups/edit/" + groupId)
+      .get(`${Server}/api/groups/edit/` + groupId)
       .then((response) => {
         setName(response.data.groupName);
         console.log(response.data);
@@ -37,7 +37,7 @@ function EditGroup() {
     };
 
     api
-      .post("http://localhost:8080/api/groups/edit/" + groupId, formData, {
+      .post(`${Server}/api/groups/edit/` + groupId, formData, {
         headers: {
           "Content-Type": "application/json",
         },

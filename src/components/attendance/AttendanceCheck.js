@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Card, Col, Row } from "react-bootstrap";
-import axios from "axios";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
 import dayjs from "dayjs";
@@ -14,10 +13,11 @@ function AttendanceCheck() {
   const [selectYear, setSelectYear] = useState();
   const [selectMonth, setSelectMonth] = useState();
   const [selectDay, setSelectDay] = useState();
+  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get("http://localhost:8080/api/attendances/check")
+      .get(`${Server}/api/attendances/check`)
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -55,7 +55,7 @@ function AttendanceCheck() {
     }
 
     api
-      .post("http://localhost:8080/api/attendances/create", formData, {
+      .post(`${Server}/api/attendances/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

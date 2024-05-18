@@ -19,10 +19,11 @@ function EditAttendanceCheck() {
   const [attendanceDate, setAttendanceDate] = useState();
 
   const [loading, setLoading] = useState(true);
+  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get("http://localhost:8080/api/attendances/check")
+      .get(`${Server}/api/attendances/check`)
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -31,7 +32,7 @@ function EditAttendanceCheck() {
       .catch((error) => console.log(error));
 
       api
-      .get("http://localhost:8080/api/attendances/edit/" + attendanceId)
+      .get(`${Server}/api/attendances/edit/` + attendanceId)
       .then((response) => {
         setMemberIds(response.data.checkedMemberIds.map((member) => member.memberId));
         setAttendanceDate(response.data.attendanceDate);
@@ -83,7 +84,7 @@ function EditAttendanceCheck() {
     }
 
     api
-      .post("http://localhost:8080/api/attendances/edit/" + attendanceId, formData, {
+      .post(`${Server}/api/attendances/edit/` + attendanceId, formData, {
         headers: {
           "Content-Type": "application/json",
         },
