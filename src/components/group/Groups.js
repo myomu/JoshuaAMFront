@@ -12,11 +12,10 @@ function Groups() {
 
   const [groups, setGroups] = useState("");
   const [groupIds, setGroupIds] = useState([]);
-  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get(`/api/groups`)
+      .get(`/groups`)
       .then((response) => {
         setGroups(response.data);
         console.log("---");
@@ -36,7 +35,7 @@ function Groups() {
     };
 
     api
-      .post(`/api/groups/delete`, formData, {
+      .post(`/groups/delete`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -19,11 +19,10 @@ function CreateMember() {
     setAge(e.target.value);
   };
 
-  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get(`/api/groups`)
+      .get(`/groups`)
       .then((response) => {
         setGroups(response.data);
         console.log("---");
@@ -57,7 +56,7 @@ function CreateMember() {
     }
 
     api
-      .post(`/api/members/create`, formData, {
+      .post(`/members/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -28,8 +28,6 @@ function Members() {
     setEndDate(value);
   };
 
-  const Server = `${process.env.REACT_APP_Server}`;
-
   useEffect(() => {
     const params = {
       startDate: startDate != null ? dayjs(startDate).format("YYYY-MM-DDTHH:mm") : null,
@@ -37,7 +35,7 @@ function Members() {
     };
 
     api
-      .get(`/api/members`, { params })
+      .get(`/members`, { params })
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -57,7 +55,7 @@ function Members() {
     };
 
     api
-      .post(`/api/members/delete`, formData, {
+      .post(`/members/delete`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -23,15 +23,13 @@ function EditMember() {
     setDateOfBirth(e.target.value);
   };
 
-  const Server = `${process.env.REACT_APP_Server}`;
-
   useEffect(() => {
-    api.get(`/api/groups`)
+    api.get(`/groups`)
     .then((response) => {
       setGroups(response.data);
     })
     api
-      .get(`/api/members/edit/` + memberId)
+      .get(`/members/edit/` + memberId)
       .then((response) => {
         setName(response.data.name);
         setDateOfBirth(response.data.dateOfBirth);
@@ -59,7 +57,7 @@ function EditMember() {
     formData.append("group", group);
 
     api
-      .post(`/api/members/edit/` + memberId, formData, {
+      .post(`/members/edit/` + memberId, formData, {
         headers: {
           "Content-Type": "application/json",
         },

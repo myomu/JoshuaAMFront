@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Card, Col, Row } from "react-bootstrap";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
@@ -19,11 +18,10 @@ function EditAttendanceCheck() {
   const [attendanceDate, setAttendanceDate] = useState();
 
   const [loading, setLoading] = useState(true);
-  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get(`/api/attendances/check`)
+      .get(`/attendances/check`)
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -32,7 +30,7 @@ function EditAttendanceCheck() {
       .catch((error) => console.log(error));
 
       api
-      .get(`/api/attendances/edit/` + attendanceId)
+      .get(`/attendances/edit/` + attendanceId)
       .then((response) => {
         setMemberIds(response.data.checkedMemberIds.map((member) => member.memberId));
         setAttendanceDate(response.data.attendanceDate);
@@ -84,7 +82,7 @@ function EditAttendanceCheck() {
     }
 
     api
-      .post(`${Server}/api/attendances/edit/` + attendanceId, formData, {
+      .post(`/attendances/edit/` + attendanceId, formData, {
         headers: {
           "Content-Type": "application/json",
         },

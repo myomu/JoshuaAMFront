@@ -12,11 +12,10 @@ function EditGroup() {
   };
 
   const [validated, setValidated] = useState(false);
-  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get(`/api/groups/edit/` + groupId)
+      .get(`/groups/edit/` + groupId)
       .then((response) => {
         setName(response.data.groupName);
         console.log(response.data);
@@ -37,7 +36,7 @@ function EditGroup() {
     };
 
     api
-      .post(`/api/groups/edit/` + groupId, formData, {
+      .post(`/groups/edit/` + groupId, formData, {
         headers: {
           "Content-Type": "application/json",
         },

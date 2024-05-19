@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -10,10 +9,9 @@ import api from "../../apis/api";
 function Attendances() {
   const [attendances, setAttendances] = useState("");
   const [attendanceIds, setAttendanceIds] = useState([]);
-  const Server = `${process.env.REACT_APP_Server}`;
   useEffect(() => {
     api
-      .get(`/api/attendances`)
+      .get(`/attendances`)
       .then((response) => {
         setAttendances(response.data);
         console.log(response.data);
@@ -31,7 +29,7 @@ function Attendances() {
     };
 
     api
-      .post(`/api/attendances`, formData, {
+      .post(`/attendances`, formData, {
         headers: {
           "Content-Type": "application/json",
         }

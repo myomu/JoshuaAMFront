@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +10,6 @@ function CreateGroup() {
     setName(e.target.value);
   };
 
-  const Server = `${process.env.REACT_APP_Server}`;
 
   const [validated, setValidated] = useState(false);
 
@@ -29,7 +27,7 @@ function CreateGroup() {
     }
 
     api
-      .post(`/api/groups/create`, formData, {
+      .post(`/groups/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

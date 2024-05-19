@@ -13,11 +13,10 @@ function AttendanceCheck() {
   const [selectYear, setSelectYear] = useState();
   const [selectMonth, setSelectMonth] = useState();
   const [selectDay, setSelectDay] = useState();
-  const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
     api
-      .get(`/api/attendances/check`)
+      .get(`/attendances/check`)
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -56,7 +55,7 @@ function AttendanceCheck() {
     }
 
     api
-      .post(`/api/attendances/create`, formData, {
+      .post(`/attendances/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
