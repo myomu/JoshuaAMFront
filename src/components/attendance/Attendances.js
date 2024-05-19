@@ -13,7 +13,7 @@ function Attendances() {
   const Server = `${process.env.REACT_APP_Server}`;
   useEffect(() => {
     api
-      .get(`${Server}/api/attendances`)
+      .get(`/api/attendances`)
       .then((response) => {
         setAttendances(response.data);
         console.log(response.data);
@@ -31,7 +31,7 @@ function Attendances() {
     };
 
     api
-      .post(`${Server}/api/attendances`, formData, {
+      .post(`/api/attendances`, formData, {
         headers: {
           "Content-Type": "application/json",
         }

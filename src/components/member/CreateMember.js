@@ -23,7 +23,7 @@ function CreateMember() {
 
   useEffect(() => {
     api
-      .get(`${Server}/api/groups`)
+      .get(`/api/groups`)
       .then((response) => {
         setGroups(response.data);
         console.log("---");
@@ -57,7 +57,7 @@ function CreateMember() {
     }
 
     api
-      .post(`${Server}/api/members/create`, formData, {
+      .post(`/api/members/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

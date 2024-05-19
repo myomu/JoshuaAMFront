@@ -29,7 +29,7 @@ function CreateGroup() {
     }
 
     api
-      .post(`${Server}/api/groups/create`, formData, {
+      .post(`/api/groups/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

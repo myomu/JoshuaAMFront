@@ -10,7 +10,7 @@ function EditMember() {
 
   
   const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [dateOfBirth, setDateOfBirth] = useState(0);
   const [gender, setGender] = useState();
   const [group, setGroup] = useState();
 
@@ -19,22 +19,22 @@ function EditMember() {
   const nameChange = (e) => {
     setName(e.target.value);
   };
-  const ageChange = (e) => {
-    setAge(e.target.value);
+  const dateOfBirthChange = (e) => {
+    setDateOfBirth(e.target.value);
   };
 
   const Server = `${process.env.REACT_APP_Server}`;
 
   useEffect(() => {
-    api.get(`${Server}/api/groups`)
+    api.get(`/api/groups`)
     .then((response) => {
       setGroups(response.data);
     })
     api
-      .get(`${Server}/api/members/edit/` + memberId)
+      .get(`/api/members/edit/` + memberId)
       .then((response) => {
         setName(response.data.name);
-        setAge(response.data.age);
+        setDateOfBirth(response.data.dateOfBirth);
         setGender(response.data.gender);
         setGroup(response.data.groupId);
         console.log(response);
@@ -54,12 +54,12 @@ function EditMember() {
 
     let formData = new FormData();
     formData.append("name", name);
-    formData.append("age", age);
+    formData.append("dateOfBirth", dateOfBirth);
     formData.append("gender", gender);
     formData.append("group", group);
 
     api
-      .post(`${Server}/api/members/edit/` + memberId, formData, {
+      .post(`/api/members/edit/` + memberId, formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -101,15 +101,15 @@ function EditMember() {
           </Form.Group>
 
           <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>나이</Form.Label>
+            <Form.Label>생년월일</Form.Label>
             <Form.Control
               required
-              type="number"
-              placeholder="나이"
+              type="text"
+              placeholder="생년월일"
               min={0}
               max={200}
-              value={age}
-              onChange={ageChange}
+              value={dateOfBirth}
+              onChange={dateOfBirthChange}
             />
             <Form.Control.Feedback type="invalid">
               나이를 입력해주세요.
@@ -147,7 +147,7 @@ function EditMember() {
           <Form.Group as={Col} md="3" controlId="group">
             <Form.Label>조</Form.Label>
             <Form.Select value={group} onChange={handleSelectGroup}>
-              <option>조 없음</option>
+              <option value={-1}>조 없음</option>
               {groups
                 ? groups.map((a, i) => (
                     <option key={i} value={a.groupId}>

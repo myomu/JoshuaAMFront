@@ -16,7 +16,7 @@ function Groups() {
 
   useEffect(() => {
     api
-      .get(`${Server}/api/groups`)
+      .get(`/api/groups`)
       .then((response) => {
         setGroups(response.data);
         console.log("---");
@@ -36,7 +36,7 @@ function Groups() {
     };
 
     api
-      .post(`${Server}/api/groups/delete`, formData, {
+      .post(`/api/groups/delete`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

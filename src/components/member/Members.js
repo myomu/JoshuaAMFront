@@ -37,7 +37,7 @@ function Members() {
     };
 
     api
-      .get(`${Server}/api/members`, { params })
+      .get(`/api/members`, { params })
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -57,7 +57,7 @@ function Members() {
     };
 
     api
-      .post(`${Server}/api/members/delete`, formData, {
+      .post(`/api/members/delete`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

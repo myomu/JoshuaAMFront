@@ -78,7 +78,7 @@ const LoginConfigContextProvider = ({ children }) => {
       const headers = response.headers;
       const authorization = headers.authorization;
       const accessToken = authorization.replace("Bearer ", ""); // 💍 JWT
-
+      console.log(accessToken);
       console.log(`data : ${data}`);
       console.log(`status : ${status}`);
       console.log(`headers : ${headers}`);
@@ -104,9 +104,10 @@ const LoginConfigContextProvider = ({ children }) => {
       // 로그인 실패
       // - 아이디 또는 비밀번호가 일치하지 않습니다.
       // alert(`로그인 실패!`);
+      console.log(error);
       Swal.alert(
         "로그인 실패",
-        "아이디 또는 비밀번호가 일치하지 않습니다.",
+        "아이디 또는 비밀번호가 일치하지 않습니다~~",
         "error"
       );
     }

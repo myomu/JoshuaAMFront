@@ -16,7 +16,7 @@ function EditGroup() {
 
   useEffect(() => {
     api
-      .get(`${Server}/api/groups/edit/` + groupId)
+      .get(`/api/groups/edit/` + groupId)
       .then((response) => {
         setName(response.data.groupName);
         console.log(response.data);
@@ -37,7 +37,7 @@ function EditGroup() {
     };
 
     api
-      .post(`${Server}/api/groups/edit/` + groupId, formData, {
+      .post(`/api/groups/edit/` + groupId, formData, {
         headers: {
           "Content-Type": "application/json",
         },

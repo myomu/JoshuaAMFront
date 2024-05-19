@@ -17,7 +17,7 @@ function AttendanceCheck() {
 
   useEffect(() => {
     api
-      .get(`${Server}/api/attendances/check`)
+      .get(`/api/attendances/check`)
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -30,6 +30,7 @@ function AttendanceCheck() {
   const handleSubmit = (event) => {
     event.preventDefault(); //페이지 리로드 방지.
     memberIds.sort();
+    console.log(memberIds);
 
     const year = parseInt(selectYear);
     const month = parseInt(selectMonth) - 1;
@@ -55,7 +56,7 @@ function AttendanceCheck() {
     }
 
     api
-      .post(`${Server}/api/attendances/create`, formData, {
+      .post(`/api/attendances/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },

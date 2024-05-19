@@ -23,7 +23,7 @@ function EditAttendanceCheck() {
 
   useEffect(() => {
     api
-      .get(`${Server}/api/attendances/check`)
+      .get(`/api/attendances/check`)
       .then((response) => {
         setMembers(response.data);
         console.log("---");
@@ -32,7 +32,7 @@ function EditAttendanceCheck() {
       .catch((error) => console.log(error));
 
       api
-      .get(`${Server}/api/attendances/edit/` + attendanceId)
+      .get(`/api/attendances/edit/` + attendanceId)
       .then((response) => {
         setMemberIds(response.data.checkedMemberIds.map((member) => member.memberId));
         setAttendanceDate(response.data.attendanceDate);
