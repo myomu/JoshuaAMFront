@@ -1,6 +1,5 @@
 import api from './api';
 
-const Server = `${process.env.REACT_APP_Server}`;
 // 로그인
 export const login = (username, password) => api.post(`/login?username=${username}&password=${password}`)
 
