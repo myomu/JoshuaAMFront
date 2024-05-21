@@ -77,11 +77,12 @@ const LoginConfigContextProvider = ({ children }) => {
       const status = response.status;
       const headers = response.headers;
       const authorization = headers.authorization;
-      const accessToken = authorization.replace("Bearer ", ""); // 💍 JWT
+      const accessToken = authorization ? authorization.replace("Bearer ", "") : null; // 💍 JWT
       console.log(accessToken);
       console.log(`data : ${data}`);
       console.log(`status : ${status}`);
       console.log(`headers : ${headers}`);
+      console.log(`authorization : ${authorization}`);
       console.log(`jwt : ${accessToken}`);
 
       // ✅ 로그인 성공
