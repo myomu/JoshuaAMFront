@@ -1,26 +1,8 @@
 import api from './api';
 
 // 로그인
-export const login = (username, password) => {
-    return api.post(`/login?username=${username}&password=${password}`,
-{
-    headers: {
-        "Content-Type": "application/json",
-    },
-    withCredentials: true
-}
-)
-.then(response => {
-    console.log('Full response:', response);
-    console.log('Response Data:', response.data);
-    const authorization = response.headers.get('Authorization');
-    console.log(authorization);
-})
-.catch(error => {
-    console.error('Error:', error);
-    throw error;
-})
-}
+export const login = (username, password) => api.post(`/login?username=${username}&password=${password}`)
+
 // 사용자 정보
 export const info = () => api.get(`/users/info`)
 
