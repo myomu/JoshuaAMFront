@@ -2,6 +2,10 @@ import api from './api';
 
 // 로그인
 export const login = (username, password) => api.post(`/login?username=${username}&password=${password}`)
+.then(response => {
+    const authorization = response.headers.get('Authorization');
+    console.log(authorization);
+})
 
 // 사용자 정보
 export const info = () => api.get(`/users/info`)
