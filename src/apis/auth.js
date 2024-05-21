@@ -1,7 +1,14 @@
 import api from './api';
 
 // 로그인
-export const login = (username, password) => api.post(`/login?username=${username}&password=${password}`)
+export const login = (username, password) => api.post(`/login?username=${username}&password=${password}`,
+{
+    headers: {
+        "Content-Type": "application/json",
+    },
+    withCredentials: true
+}
+)
 .then(response => {
     const authorization = response.headers.get('Authorization');
     console.log(authorization);
