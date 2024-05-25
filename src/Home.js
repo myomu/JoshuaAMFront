@@ -1,10 +1,12 @@
-function Home() {
+import Header from "./components/Header/Header";
 
-    return (
-        <div>
-            <p>홈 화면 입니다~</p>
-        </div>
-    )
+function Home() {
+  return (
+    <div>
+      <Header />
+      <p>홈 화면 입니다~</p>
+    </div>
+  );
 }
 
 export default Home;

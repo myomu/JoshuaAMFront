@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Card, Col, Row } from "react-bootstrap";
+import { Form, Card, Col, Row } from "react-bootstrap";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
 import dayjs from "dayjs";
 import api from "../../apis/api";
+import { Button } from "@mui/material";
+import Header from "../Header/Header";
+import * as attendanceApi from "../../apis/attendanceApi";
+import * as Swal from "../../apis/alert";
 
-function AttendanceCheck() {
+const AttendanceCheck = () => {
   const [members, setMembers] = useState("");
   const [memberIds, setMemberIds] = useState([]);
 
@@ -14,20 +18,43 @@ function AttendanceCheck() {
   const [selectMonth, setSelectMonth] = useState();
   const [selectDay, setSelectDay] = useState();
 
-  useEffect(() => {
-    api
-      .get(`/attendances/check`)
-      .then((response) => {
-        setMembers(response.data);
-        console.log("---");
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error));
+  const getAttendanceCheck = async () => {
+    try {
+      const response = await attendanceApi.getAttendanceCheck();
+      const members = response.data;
+      setMembers(members);
+    } catch (error) {
+      console.error(`출석체크 목록을 불러오는데 실패했습니다.`);
+      console.error(`${error}`);
+    }
+  };
 
+  const createAttendance = async (form) => {
+    try {
+      await attendanceApi.createAttendance(form);
+      Swal.alert("출석 추가 성공", "", "success", () => {
+        window.location.replace("/attendances");
+      });
+    } catch (error) {
+      console.error(`${error}`);
+      Swal.alert("출석 추가 실패", "", "error");
+    }
+  };
+
+  useEffect(() => {
+    // api
+    //   .get(`/attendances/check`)
+    //   .then((response) => {
+    //     setMembers(response.data);
+    //     console.log("---");
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => console.log(error));
+    getAttendanceCheck();
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault(); //페이지 리로드 방지.
+  const handleSubmit = (e) => {
+    e.preventDefault(); //페이지 리로드 방지.
     memberIds.sort();
     console.log(memberIds);
 
@@ -44,31 +71,33 @@ function AttendanceCheck() {
     if (switchChecked === true) {
       formData = {
         memberIds: memberIds,
-        attendanceDate: attendanceDate
+        attendanceDate: attendanceDate,
       };
     } else {
       //날짜 선택 switch 가 false 일 경우 다시 년,월,일 을 null로 설정
       formData = {
         memberIds: memberIds,
-        attendanceDate: null
+        attendanceDate: null,
       };
     }
 
-    api
-      .post(`/attendances/create`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        alert("출석 추가에 성공하였습니다.");
-        window.location.replace("/attendances");
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert("출석 추가에 실패하였습니다.");
-      });
+    createAttendance(formData);
+
+    // api
+    //   .post(`/attendances/create`, formData, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     alert("출석 추가에 성공하였습니다.");
+    //     window.location.replace("/attendances");
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //     alert("출석 추가에 실패하였습니다.");
+    //   });
   };
 
   const handleSwitchChange = () => {
@@ -97,9 +126,8 @@ function AttendanceCheck() {
   const days = Array.from({ length: daysInYearAndMonth }, (_, i) => i + 1);
 
   return (
-    <div className="container">
-      <p>출석체크 화면</p>
-
+    <div>
+      <Header />
       <Form onSubmit={handleSubmit}>
         <Card>
           <Card.Body>
@@ -170,7 +198,7 @@ function AttendanceCheck() {
         </Card>
 
         <CheckboxGroup
-          label="출석체크 인원"
+          // label="출석체크 인원"
           values={memberIds}
           onChange={setMemberIds}
         >
@@ -198,7 +226,7 @@ function AttendanceCheck() {
         </CheckboxGroup>
 
         <Button
-          variant="primary"
+          variant="contained"
           type="submit"
           className="btnSave"
           disabled={memberIds.length === 0}
@@ -208,6 +236,6 @@ function AttendanceCheck() {
       </Form>
     </div>
   );
-}
+};
 
 export default AttendanceCheck;

@@ -9,14 +9,7 @@ const LoginForm = () => {
   const onLogin = (e) => {
     // 데이터 세팅
     e.preventDefault()
-    // const username = e.target.username.value
-    // const password = e.target.password.value
-    // const rememberId = e.target.rememberId.checked
-    // console.log(e.target.username.value)
-    // console.log(e.target.password.value)
-    // console.log(e.target.rememberId.checked)
 
-    // login(username, password, rememberId)
     const form = e.target;
     const username = form.username.value;
     const password = form.password.value;

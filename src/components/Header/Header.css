@@ -1,9 +1,10 @@
-header {
+/* .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid #000;
+    background-color: antiquewhite;
+    margin-bottom: 40px;
 }
 
 .logo { width: 80px; }
@@ -14,3 +15,18 @@ header {
     align-items: center;
     column-gap: 12px;
 }
+
+.navbar {
+    width: auto;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-left {
+    margin-right: 15px;
+}
+
+.nav-right {
+    margin-left: 15px;
+} */

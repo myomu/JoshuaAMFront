@@ -5,7 +5,7 @@ import * as auth from "../apis/auth";
 import { useNavigate } from "react-router-dom";
 import * as Swal from "../apis/alert";
 import { useDispatch, useSelector } from "react-redux";
-import { resetIsLogin, setIsLogin, setRoles, setUserInfo } from "./store";
+import { resetIsLogin, setIsLogin, setRole, setUserInfo } from "./store";
 
 export const LoginConfigContext = createContext();
 // LoginContext.displayName = "LoginContextName";
@@ -56,6 +56,7 @@ const LoginConfigContextProvider = ({ children }) => {
     // ❌ 인증 실패
     if (data === "UNAUTHORIZED" || response.status === 401) {
       console.error(`accessToken (jwt) 이 만료되었거나 인증에 실패하였습니다.`);
+      logoutSetting();
       return;
     }
 
@@ -77,7 +78,7 @@ const LoginConfigContextProvider = ({ children }) => {
       const status = response.status;
       const headers = response.headers;
       const authorization = headers.authorization;
-      const accessToken = authorization ? authorization.replace("Bearer ", "") : null; // 💍 JWT
+      const accessToken = authorization.replace("Bearer ", ""); // 💍 JWT
       console.log(accessToken);
       console.log(`data : ${data}`);
       console.log(`status : ${status}`);
@@ -108,7 +109,7 @@ const LoginConfigContextProvider = ({ children }) => {
       console.log(error);
       Swal.alert(
         "로그인 실패",
-        "아이디 또는 비밀번호가 일치하지 않습니다~~",
+        "아이디 또는 비밀번호가 일치하지 않습니다.",
         "error"
       );
     }
@@ -152,13 +153,13 @@ const LoginConfigContextProvider = ({ children }) => {
   // 🔒 로그인 세팅
   // 😄 userData, 💍 accessToken (jwt)
   const loginSetting = (userData, accessToken) => {
-    const { no, userId, authList } = userData;
-    const roleList = authList && authList.map((auth) => auth.auth);
+    const { id, userLoginId, auth } = userData;
+    //const roleList = authList && authList.map((auth) => auth.auth);
 
-    console.log(`no : ${no}`);
-    console.log(`userId : ${userId}`);
-    console.log(`authList : ${authList}`);
-    console.log(`roleList : ${roleList}`);
+    // console.log(`no : ${id}`);
+    // console.log(`userId : ${userLoginId}`);
+    // console.log(`authList : ${auth}`);
+    //console.log(`roleList : ${roleList}`);
 
     // 🚀 axios 객체의 header(Authorization : `Bearer ${accessToken}`)
     api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -167,17 +168,18 @@ const LoginConfigContextProvider = ({ children }) => {
     dispatch(setIsLogin(true));
 
     // 유저 정보 세팅
-    const updatedUserInfo = { no, userId, roleList };
+    const updatedUserInfo = { id, userLoginId, auth };
+    console.log('updatedUserInfo', updatedUserInfo);
     dispatch(setUserInfo(updatedUserInfo));
 
     // 권한정보 세팅
     const updatedRoles = { isUser: false, isAdmin: false };
 
-    roleList && roleList.forEach((role) => {
-      if (role === "ROLE_USER") updatedRoles.isUser = true;
-      if (role === "ROLE_ADMIN") updatedRoles.isAdmin = true;
-    });
-    dispatch(setRoles(updatedRoles));
+    // roleList && roleList.forEach((role) => {
+    //   if (role === "ROLE_USER") updatedRoles.isUser = true;
+    //   if (role === "ROLE_ADMIN") updatedRoles.isAdmin = true;
+    // });
+    // dispatch(setRoles(updatedRoles));
   };
 
   // 로그아웃 세팅
@@ -195,13 +197,13 @@ const LoginConfigContextProvider = ({ children }) => {
     setUserInfo(null);
 
     // 권한 정보 초기화
-    setRoles(null);
+    setRole(null);
   };
 
-  useEffect(() => {
-    // 로그인 체크
-    loginCheck();
-  }, []);
+  // useEffect(() => {
+  //   // 로그인 체크
+  //   loginCheck();
+  // }, []);
 
   return (
     <LoginConfigContext.Provider value={{ login, loginCheck, logout }}>

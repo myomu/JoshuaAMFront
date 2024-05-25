@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, createSlice, createStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 // const isLoginInitialState = false;
@@ -19,21 +19,20 @@ const isLogin = createSlice({
 
 const userInfo = createSlice({
   name : 'userInfo',
-  initialState : {},
+  initialState : {info : null},
   reducers : {
     setUserInfo(state, action) {
-      state = action.payload;
+      state.info = action.payload;
     }
   }
 })
 
-const roles = createSlice({
-  name : 'roles',
-  initialState : {isUser : false, isAdmin : false},
+const role = createSlice({
+  name : 'role',
+  initialState : {role : null},
   reducers : {
-    setRoles(state, action) {
-      state.isUser = action.payload.isUser;
-      state.isAdmin = action.payload.isAdmin;
+    setRole(state, action) {
+      state.role = action.payload;
     }
   }
 })
@@ -41,7 +40,7 @@ const roles = createSlice({
 const rootReducers = combineReducers({
   isLogin : isLogin.reducer,
   userInfo : userInfo.reducer,
-  roles : roles.reducer,
+  role : role.reducer,
 });
 
 const persistConfig = {
@@ -52,7 +51,7 @@ const persistConfig = {
 
 export let { setIsLogin, resetIsLogin } = isLogin.actions;
 export let { setUserInfo } = userInfo.actions;
-export let { setRoles } = roles.actions;
+export let { setRole } = role.actions;
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 

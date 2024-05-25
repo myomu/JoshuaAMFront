@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Card, Col, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Form, Card, Col, Row } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
-import dayjs from "dayjs";
 import api from "../../apis/api";
 
-function EditAttendanceCheck() {
+import * as attendanceApi from "../../apis/attendanceApi";
+import * as Swal from "../../apis/alert";
+
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import { Button } from "@mui/material";
+dayjs.extend(utc);
+
+const EditAttendanceCheck = () => {
+  const navigate = useNavigate();
+
   const [members, setMembers] = useState();
   const { attendanceId } = useParams();
 
@@ -19,30 +28,74 @@ function EditAttendanceCheck() {
 
   const [loading, setLoading] = useState(true);
 
+  const getAttendanceCheck = async () => {
+    try {
+      const response = await attendanceApi.getAttendanceCheck();
+      const members = response.data;
+      setMembers(members);
+    } catch (error) {
+      console.error(`출석체크 목록을 불러오는데 실패했습니다.`);
+      console.error(`${error}`);
+    }
+  };
+
+  const getEditAttendanceCheck = async () => {
+    try {
+      const response = await attendanceApi.getEditAttendanceCheck(attendanceId);
+      const data = response.data;
+      setMemberIds(data.checkedMemberIds.map((member) => member.memberId));
+      setAttendanceDate(data.attendanceDate);
+
+      const dateTime = dayjs.utc(data.attendanceDate).local();
+      console.log(dateTime);
+      setSelectYear(dateTime.year());
+      setSelectMonth(dateTime.month() + 1);
+      setSelectDay(dateTime.date());
+      setLoading(false);
+    } catch (error) {
+      console.error(`${error}`);
+    }
+  };
+
+  const editAttendance = async (form) => {
+    try {
+      await attendanceApi.editAttendance(attendanceId, form);
+      Swal.alert("출석 수정 성공", "", "success", () => {
+        window.location.replace("/attendances");
+      });
+    } catch (error) {
+      console.error(`${error}`);
+      Swal.alert("출석 수정 실패", "", "error");
+    }
+  };
+
   useEffect(() => {
-    api
-      .get(`/attendances/check`)
-      .then((response) => {
-        setMembers(response.data);
-        console.log("---");
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error));
+    // api
+    //   .get(`/attendances/check`)
+    //   .then((response) => {
+    //     setMembers(response.data);
+    //     console.log("---");
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => console.log(error));
 
-      api
-      .get(`/attendances/edit/` + attendanceId)
-      .then((response) => {
-        setMemberIds(response.data.checkedMemberIds.map((member) => member.memberId));
-        setAttendanceDate(response.data.attendanceDate);
+    // api
+    // .get(`/attendances/edit/` + attendanceId)
+    // .then((response) => {
+    //   setMemberIds(response.data.checkedMemberIds.map((member) => member.memberId));
+    //   setAttendanceDate(response.data.attendanceDate);
 
-        const dateTime = new Date(response.data.attendanceDate);
-        setSelectYear(dateTime.getFullYear());
-        setSelectMonth(dateTime.getMonth() + 1);
-        setSelectDay(dateTime.getDate());
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
-  }, [attendanceId]);
+    //   const dateTime = new Date(response.data.attendanceDate);
+    //   setSelectYear(dateTime.getFullYear());
+    //   setSelectMonth(dateTime.getMonth() + 1);
+    //   setSelectDay(dateTime.getDate());
+    //   setLoading(false);
+    // })
+    // .catch((error) => console.log(error));
+
+    getAttendanceCheck();
+    getEditAttendanceCheck();
+  }, []);
 
   // useEffect(() => {
   //   //   const fetchData = async () => {
@@ -53,7 +106,6 @@ function EditAttendanceCheck() {
   // }, [attendanceId]);
 
   const handleSubmit = (event) => {
-    
     event.preventDefault(); //페이지 리로드 방지.
 
     memberIds.sort();
@@ -71,31 +123,33 @@ function EditAttendanceCheck() {
     if (switchChecked === true) {
       formData = {
         memberIds: memberIds,
-        attendanceDate: editDateTime
+        attendanceDate: editDateTime,
       };
     } else {
       //날짜 선택 switch 가 false 일 경우 다시 년,월,일 을 null로 설정
       formData = {
         memberIds: memberIds,
-        attendanceDate: attendanceDate
+        attendanceDate: attendanceDate,
       };
     }
+    
+    editAttendance(formData);
 
-    api
-      .post(`/attendances/edit/` + attendanceId, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        alert("출석 수정에 성공하였습니다.");
-        window.location.replace("/attendances");
-      })
-      .catch(function (error) {
-        console.log(error);
-        alert("출석 수정에 실패하였습니다.");
-      });
+    //   api
+    //     .post(`/attendances/edit/` + attendanceId, formData, {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //       alert("출석 수정에 성공하였습니다.");
+    //       window.location.replace("/attendances");
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //       alert("출석 수정에 실패하였습니다.");
+    //     });
   };
 
   const handleSwitchChange = () => {
@@ -225,12 +279,21 @@ function EditAttendanceCheck() {
           </CheckboxGroup>
 
           <Button
-            variant="primary"
+            variant="contained"
             type="submit"
             className="btnSave"
             disabled={memberIds.length === 0}
           >
-            출석 수정
+            저장
+          </Button>
+          <Button
+            variant="contained"
+            style={{ marginLeft: "5px" }}
+            onClick={() => {
+              navigate("/attendances");
+            }}
+          >
+            취소
           </Button>
         </Form>
       </div>
@@ -240,8 +303,8 @@ function EditAttendanceCheck() {
       <div>
         <p>로딩중 입니다.</p>
       </div>
-    )
+    );
   }
-}
+};
 
 export default EditAttendanceCheck;
