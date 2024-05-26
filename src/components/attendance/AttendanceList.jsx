@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as attendanceApi from "../../apis/attendanceApi";
@@ -11,7 +11,6 @@ dayjs.extend(utc);
 const AttendanceList = () => {
   const navigate = useNavigate();
 
-  // const [attendances, setAttendances] = useState("");
   const [attendanceIds, setAttendanceIds] = useState([]);
 
   const handleSelectAttendance = (selectAttendance) => {
@@ -26,37 +25,63 @@ const AttendanceList = () => {
   const columns = [
     { field: "attendanceDate", headerName: "날짜", width: "200",
       renderCell: (params) => (
-        params = dayjs.utc(params.value).local().format("YYYY-MM-DD")
-      )
+        <div style={{height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+          {params = dayjs.utc(params.value).local().format("YYYY-MM-DD")}
+        </div>
+      ),
+      headerAlign: "center",
      },
     { field: "attendanceDataDtoList", headerName: "출석인원", width: "500",
+      headerAlign: "center",
       renderCell: (params) => {
         // const names = params.value.map((member) => member.memberName).join("     ");
         // return <span>{names}</span>
         return (
-          <div>
+          <Box sx={{
+            marginTop: "7px",
+            marginBottom: "7px"
+          }}
+            // sx={{
+            //   whiteSpace: 'normal',
+            //   wordWrap: 'break-word',
+            //   display: 'flex',
+            //   flexDirection: 'column',
+            //   maxHeight: '150px',
+            //   overflow: 'auto',
+            // }}
+          >
             {params.value.map((member, index) => (
-              <div key={index} style={{ display: "inline-block", marginRight: "10px"}}>
+              <Box key={index} style={{ display: "inline-block", marginRight: "10px"}}>
                 {member.memberName}
-              </div>
+              </Box>
             ))}
-          </div>
+          </Box>
         )
       }
       
      },
-    { field: "totalMember", headerName: "총인원" },
+    { field: "totalMember", headerName: "총인원",
+      headerAlign: "center",
+      renderCell: (params) => (
+        <div style={{height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+          {params.value}
+        </div>
+      )
+     },
     {
       field: "edit",
       headerName: "수정",
+      headerAlign: "center",
       renderCell: (params) => (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => navigate(`edit/${params.row.attendanceId}`)}
-        >
-          수정
-        </Button>
+        <div style={{height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => navigate(`edit/${params.row.attendanceId}`)}
+          >
+            수정
+          </Button>
+        </div>
       ),
     },
   ];
@@ -112,81 +137,13 @@ const AttendanceList = () => {
     getAttendances();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); //페이지 리로드 방지.
-    console.log(attendanceIds);
-    // memberIds.sort();
-
-    // const formData = {
-    //   attendanceIds: attendanceIds,
-    // };
-
-    //   api
-    //     .post(`/attendances`, formData, {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       }
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       alert("출석 삭제에 성공하였습니다.");
-    //       window.location.replace("/attendances");
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //       alert("출석 삭제에 실패하였습니다.");
-    //     });
-  };
-
   return (
-    // <tbody style={{ fontSize: "14px" }}>
-    //   {attendances
-    //     ? attendances.map((a, i) => {
-    //         const date = new Date(a.attendanceDate);
-    //         const year = date.getFullYear();
-    //         const month = String(date.getMonth() + 1).padStart(2, "0");
-    //         const day = String(date.getDate()).padStart(2, "0");
-
-    //         const formattedDate = `${year}-${month}-${day}`;
-
-    //         return (
-    //           // <tr key={i} className="text-center align-middle">
-    //           //   <td>
-    //           //     <Checkbox value={a.attendanceId}></Checkbox>
-    //           //   </td>
-    //           //   <td>{formattedDate}</td>
-    //           //   <td>
-    //           //     <Row xs="auto">
-    //           //       {a.attendanceDataDtoList.map((b, j) => (
-    //           //         <Col key={j}>
-    //           //           <div>{b.memberName}</div>
-    //           //         </Col>
-    //           //       ))}
-    //           //     </Row>
-    //           //   </td>
-    //           //   <td>{a.totalMember}</td>
-    //           //   <td>
-    //           //     <Button
-    //           //       variant="light"
-    //           //       onClick={() => {
-    //           //         navigate("edit/" + a.attendanceId);
-    //           //       }}
-    //           //     >
-    //           //       <i className="fa-regular fa-pen-to-square"></i>
-    //           //     </Button>
-    //           //   </td>
-    //           // </tr>
-
-    //         );
-    //       })
-    //     : null}
-    // </tbody>
-
     <>
       <div>
         <DataGrid
           rows={rows}
           columns={columns}
+          getRowHeight={() => "auto"}
           checkboxSelection
           onRowSelectionModelChange={(selection) => {
             handleSelectAttendance(selection);

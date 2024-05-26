@@ -3,7 +3,6 @@ import { Form, Card, Col, Row } from "react-bootstrap";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
 import dayjs from "dayjs";
-import api from "../../apis/api";
 import { Button } from "@mui/material";
 import Header from "../Header/Header";
 import * as attendanceApi from "../../apis/attendanceApi";
