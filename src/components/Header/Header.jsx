@@ -53,10 +53,10 @@ const Header = () => {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'bottom' }}
+      // anchorOrigin={{ vertical: 'top', horizontal: 'bottom' }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'bottom' }}
+      // transformOrigin={{ vertical: 'top', horizontal: 'bottom' }}
       open={Boolean(anchorEl)}
       onClose={handleMenuClose}
     >

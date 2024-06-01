@@ -45,9 +45,9 @@ const Join = () => {
 
   return (
     <>
-      <div className="container">
+      {/* <div className="container"> */}
         <JoinForm join={ join } />
-      </div>
+      {/* </div> */}
     </>
   );
 };

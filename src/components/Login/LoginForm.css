@@ -1,138 +1,68 @@
-.form {
-    width: 400px;
-    margin: auto;
-    padding: 36px 48px 48px 48px;
-    background-color: #f2efee;
-  
-    border-radius: 11px;
-    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
-  }
-  
-  .login-title {
-    padding: 15px;
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-  }
-  
-  .login-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 16px;
-  }
-  
-  .login-form label {
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  .login-form input {
-    width: 100%;
-    padding: 1.2rem;
-    border-radius: 9px;
-    border: none;
-  }
-  
-  .login-form input:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(253, 242, 233, 0.5);
-  }
-  
-  .btn--form {
-    background-color: #f48982;
-    color: #fdf2e9;
-    align-self: end;
-    padding: 8px;
-  }
-  
-  .btn,
-  .btn:link,
-  .btn:visited {
-    display: inline-block;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 600;
-    border-radius: 9px;
-    border: none;
-  
-    cursor: pointer;
-    font-family: inherit;
-  
-    transition: all 0.3s;
-  }
-  
-  .btn-login:hover {
-    outline: 1px solid #f48982;
-  }
-  
-  .btn--form:hover {
-    background-color: #fdf2e9;
-    color: #f48982;
-  }
-  
-  
-  
-  /* 토글 버튼 */
-  /* .form-check {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 10px;
-    font-size: 14px;
-  } */
-  
-  .check-label {
-    user-select: none;
-    cursor: pointer;
-    margin-bottom: 0 !important;
-  }
-  
-  /* 토글 버튼 스타일 */
-  .toggle-btn {
-    position: relative;
-    display: inline-block;
-    width: 30px;
-    height: 18px;
-    margin-bottom: 0 !important;
-  }
-  
-  /* 체크박스 숨기기 */
-  .toggle-btn input {
-    display: none;
-  }
-  
-  /* 토글 버튼 배경 */
-  .toggle-btn .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
-  }
-  
-  /* 토글 버튼 상태에 따른 배경색 변경 */
-  .toggle-btn input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  /* 토글 버튼 둥근 원형 슬라이더 */
-  .toggle-btn .slider:before {
-    position: absolute;
-    content: "";
-    height: 12px;
-    width: 12px;
-    left: 4px;
-    bottom: 3px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-  }
-  
-  /* 체크된 상태에서의 슬라이더 위치 변경 */
-  .toggle-btn input:checked + .slider:before {
-    transform: translateX(10px);
-  }
+  @font-face {
+    font-family: 'NanumBarunGothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+}
+
+/* body {
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+    font-family: 'NanumBarunGothic', sans-serif;
+} */
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: 'NanumBarunGothic', sans-serif;
+  font-size: 16px;
+}
+
+.login__form {
+  margin-top: 80px;
+  margin-bottom: 50px;
+  width: 560px;
+  max-width: 560px;
+}
+
+.login__form__title {
+  font-size: 54px;
+  color: #0d6efd;
+  font-weight: 900;
+  /* text-shadow: 3px 4px 5px #898989; */
+}
+
+.form__label {
+  color: #898989;
+  font-weight: 400;
+}
+
+.btn__login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid white;
+}
+
+.btn__login:hover {
+  border: 1px solid #0d6efd;
+  background-color: white;
+  color: #0d6efd;
+}
+
+.btn__login__join {
+  color: #898989;
+  cursor: pointer;
+}
+/* .btn-google {
+    color: white !important;
+    background-color: #ea4335;
+}
+
+.btn-facebook {
+    color: white !important;
+    background-color: #3b5998;
+} */
