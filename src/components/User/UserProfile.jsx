@@ -1,5 +1,5 @@
 import React from 'react';
-import './UserForm.css';
+import './UserProfile.css';
 
 const UserForm = ({ userInfo, updateUser, deleteUser }) => {
 

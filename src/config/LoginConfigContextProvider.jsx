@@ -24,7 +24,7 @@ const LoginConfigContextProvider = ({ children }) => {
   const loginCheck = async () => {
     // 🍪 -> 💍 쿠키에서 jwt 토큰 가져오기
     const accessToken = Cookies.get("accessToken");
-    console.log(`accessToken : ${accessToken}`);
+    // console.log(`accessToken : ${accessToken}`);
 
     // accessToken (jwt) 이 없음
     if (!accessToken) {
@@ -45,13 +45,13 @@ const LoginConfigContextProvider = ({ children }) => {
     try {
       response = await auth.info();
     } catch (error) {
-      console.log(`error : ${error}`);
-      console.log(`status : ${response.status}`);
+      console.error(`error : ${error}`);
+      // console.log(`status : ${response.status}`);
       return;
     }
 
     data = response.data;
-    console.log(`data : ${data}`);
+    // console.log(`data : ${data}`);
 
     // ❌ 인증 실패
     if (data === "UNAUTHORIZED" || response.status === 401) {
@@ -61,7 +61,7 @@ const LoginConfigContextProvider = ({ children }) => {
     }
 
     // ✅ 인증 성공
-    console.log(`accessToken (jwt) 토큰으로 사용자 인증정보 요청 성공!`);
+    // console.log(`accessToken (jwt) 토큰으로 사용자 인증정보 요청 성공!`);
 
     // 로그인 세팅
     loginSetting(data, accessToken);
@@ -69,8 +69,8 @@ const LoginConfigContextProvider = ({ children }) => {
 
   // 🔒 로그인
   const login = async (username, password) => {
-    console.log(`username: ${username}`);
-    console.log(`password: ${password}`);
+    // console.log(`username: ${username}`);
+    // console.log(`password: ${password}`);
 
     try {
       const response = await auth.login(username, password); // 예외 발생시 catch로
@@ -79,12 +79,12 @@ const LoginConfigContextProvider = ({ children }) => {
       const headers = response.headers;
       const authorization = headers.authorization;
       const accessToken = authorization.replace("Bearer ", ""); // 💍 JWT
-      console.log(accessToken);
-      console.log(`data : ${data}`);
-      console.log(`status : ${status}`);
-      console.log(`headers : ${headers}`);
-      console.log(`authorization : ${authorization}`);
-      console.log(`jwt : ${accessToken}`);
+      // console.log(accessToken);
+      // console.log(`data : ${data}`);
+      // console.log(`status : ${status}`);
+      // console.log(`headers : ${headers}`);
+      // console.log(`authorization : ${authorization}`);
+      // console.log(`jwt : ${accessToken}`);
 
       // ✅ 로그인 성공
       if (status === 200) {

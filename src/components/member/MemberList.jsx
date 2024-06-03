@@ -36,6 +36,11 @@ const MemberList = () => {
 
   };
 
+  const cancelDatePicker = () => {
+    setStartDate(null);
+    setEndDate(null);
+  }
+
   const columns = [
     { field: "name", headerName: "이름" },
     { field: "birthdate", headerName: "생년월일" },
@@ -46,12 +51,12 @@ const MemberList = () => {
         (params = params.value === "MAN" ? "남자" : "여자"),
     },
     { field: "groupName", headerName: "그룹" },
-    {
-      field: "memberStatus",
-      headerName: "구분",
-      renderCell: (params) =>
-        (params = params.value === "MEMBER" ? "회원" : "비회원"),
-    },
+    // {
+    //   field: "memberStatus",
+    //   headerName: "구분",
+    //   renderCell: (params) =>
+    //     (params = params.value === "MEMBER" ? "회원" : "비회원"),
+    // },
     {
       field: "attendanceRate",
       headerName: "출석률",
@@ -182,7 +187,7 @@ const MemberList = () => {
           }}
         />
         <DesktopDatePicker
-          className="mb-2"
+          className="mb-2 me-3"
           label="종료일"
           format="YYYY / MM / DD"
           slotProps={{ textField: { size: "small" } }}
@@ -191,6 +196,9 @@ const MemberList = () => {
             handleEndDate(newValue);
           }}
         />
+        <Button className="btn__datepicker__cancel" variant="contained"
+          onClick={cancelDatePicker}
+        >취소</Button>
         {/* <Button className="btnDatePicker" variant="outlined" onClick={() => {
           handleDatePicker();
         }}>확인</Button> */}

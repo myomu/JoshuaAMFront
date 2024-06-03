@@ -93,7 +93,7 @@ const AttendanceList = () => {
     try {
       const response = await attendanceApi.getAttendances();
       const attendances = response.data;
-      console.log(attendances);
+      // console.log(attendances);
       setRows(
         attendances &&
           attendances.map((data, idx) => {

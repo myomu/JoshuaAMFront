@@ -7,7 +7,7 @@ import LoginConfigContextProvider from "./config/LoginConfigContextProvider";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import Login from "./pages/Login.jsx";
 import Join from "./pages/Join.jsx";
-import Header from "./components/Header/Header.jsx";
+import UserProfile from "./components/User/UserProfile.jsx";
 import { setHandleTokenExpired } from "./apis/api.js";
 import { useDispatch } from "react-redux";
 import { resetIsLogin, setRole, setUserInfo } from "./config/store.js";
@@ -53,6 +53,7 @@ function App() {
                   <Route path="/attendanceCheck" element={<AttendanceCheck />} />
                   <Route path="/members/*" element={<Members />} />
                   <Route path="/groups/*" element={<Groups />} />
+                  <Route path="/user/profile" element={<UserProfile />} />
                 </Route>
               </Routes>
             </Suspense>

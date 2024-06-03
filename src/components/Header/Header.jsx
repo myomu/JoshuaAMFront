@@ -13,14 +13,14 @@ const Header = () => {
   // logout() : 로그아웃 함수 - setLogin(false)
   // const { isLogin, login, logout } = useContext(LoginContext);
   const { logout } = useContext(LoginConfigContext);
-  const isLogin = useSelector((state) => {
-    return state.isLogin.value;
-  });
+  // const isLogin = useSelector((state) => {
+  //   return state.isLogin.value;
+  // });
 
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -39,9 +39,13 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    setMobileMoreAnchorEl(null);
+    // setMobileMoreAnchorEl(null);
     setDrawerOpen(false);
   };
+
+  const handleProfile = () => {
+    navigate("/user/profile")
+  }
 
   const handleLogout = () => {
     console.log('Logged out');
@@ -60,6 +64,7 @@ const Header = () => {
       open={Boolean(anchorEl)}
       onClose={handleMenuClose}
     >
+      <MenuItem onClick={handleProfile}>프로필</MenuItem>
       <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
     </Menu>
   );
@@ -122,7 +127,7 @@ const Header = () => {
         </List>
         <Divider />
         <List>
-          <ListItem onClick={handleProfileMenuOpen}>
+          <ListItem onClick={handleProfile}>
             <ListItemText primary="프로필" />
           </ListItem>
           <ListItem onClick={handleLogout}>
