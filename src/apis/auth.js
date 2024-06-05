@@ -10,7 +10,7 @@ export const info = () => api.get(`/users/info`)
 export const join = (data) => api.post(`/users/join`, data)
 
 // 사용자 정보 수정
-export const update = (data) => api.put(`/users`, data)
+export const updateUser = (data) => api.put(`/users`, data)
 
 // 사용자 탈퇴 (회원 탈퇴)
-export const remove = (userId) => api.delete(`/users/${userId}`)
+export const removeUser = (userId) => api.delete(`/users/${userId}`)

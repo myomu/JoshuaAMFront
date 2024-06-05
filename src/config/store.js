@@ -46,7 +46,7 @@ const rootReducers = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['isLogin']
+  whitelist: ['isLogin', 'userInfo', 'role']
 };
 
 export let { setIsLogin, resetIsLogin } = isLogin.actions;

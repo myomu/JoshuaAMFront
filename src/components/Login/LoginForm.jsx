@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import "./LoginForm.css";
 import { LoginConfigContext } from "../../config/LoginConfigContextProvider";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 const LoginForm = () => {
   const { login } = useContext(LoginConfigContext);
@@ -29,7 +28,7 @@ const LoginForm = () => {
   return (
     <div className="content">
       <div className="login__form card border-0 shadow rounded-3">
-        <div className="card-body p-4 p-sm-5">
+        <div className="text-center card-body p-4 p-sm-5">
           <h5 className="login__form__title card-title text-center mb-5">
             JOSHUA
           </h5>

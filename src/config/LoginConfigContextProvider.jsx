@@ -153,7 +153,7 @@ const LoginConfigContextProvider = ({ children }) => {
   // 🔒 로그인 세팅
   // 😄 userData, 💍 accessToken (jwt)
   const loginSetting = (userData, accessToken) => {
-    const { id, userLoginId, auth } = userData;
+    const { id, userLoginId, auth, userName, email } = userData;
     //const roleList = authList && authList.map((auth) => auth.auth);
 
     // console.log(`no : ${id}`);
@@ -168,18 +168,19 @@ const LoginConfigContextProvider = ({ children }) => {
     dispatch(setIsLogin(true));
 
     // 유저 정보 세팅
-    const updatedUserInfo = { id, userLoginId, auth };
+    const updatedUserInfo = { id, userLoginId, auth, userName, email };
     console.log('updatedUserInfo', updatedUserInfo);
     dispatch(setUserInfo(updatedUserInfo));
 
     // 권한정보 세팅
-    const updatedRoles = { isUser: false, isAdmin: false };
+    // const updatedRoles = { isUser: false, isAdmin: false };
 
     // roleList && roleList.forEach((role) => {
     //   if (role === "ROLE_USER") updatedRoles.isUser = true;
     //   if (role === "ROLE_ADMIN") updatedRoles.isAdmin = true;
     // });
-    // dispatch(setRoles(updatedRoles));
+    const updatedRole = auth;
+    dispatch(setRole(updatedRole));
   };
 
   // 로그아웃 세팅
@@ -194,10 +195,10 @@ const LoginConfigContextProvider = ({ children }) => {
     dispatch(resetIsLogin(false));
 
     // 유저 정보 초기화
-    setUserInfo(null);
+    dispatch(setUserInfo(null));
 
     // 권한 정보 초기화
-    setRole(null);
+    dispatch(setRole(null));
   };
 
   // useEffect(() => {
@@ -206,7 +207,7 @@ const LoginConfigContextProvider = ({ children }) => {
   // }, []);
 
   return (
-    <LoginConfigContext.Provider value={{ login, loginCheck, logout }}>
+    <LoginConfigContext.Provider value={{ login, loginCheck, logout, logoutSetting }}>
       {children}
     </LoginConfigContext.Provider>
   )

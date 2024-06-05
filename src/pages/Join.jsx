@@ -1,8 +1,7 @@
 import React from "react";
-import Header from "../components/Header/Header";
 import JoinForm from "../components/Join/JoinForm";
-import * as auth from '../apis/auth';
 import { useNavigate } from "react-router-dom";
+import * as auth from '../apis/auth';
 import * as Swal from '../apis/alert';
 
 const Join = () => {

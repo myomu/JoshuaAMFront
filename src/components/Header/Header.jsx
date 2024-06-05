@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LoginConfigContext } from "../../config/LoginConfigContextProvider";
 import { Container, Nav, Navbar, NavbarToggle } from "react-bootstrap";
-import { AppBar, Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { AppBar, Avatar, Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Popover, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { GridMenuIcon } from "@mui/x-data-grid";
 
@@ -24,6 +24,14 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+
+  //
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  //
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,9 +71,28 @@ const Header = () => {
       // transformOrigin={{ vertical: 'top', horizontal: 'bottom' }}
       open={Boolean(anchorEl)}
       onClose={handleMenuClose}
+      
     >
-      <MenuItem onClick={handleProfile}>프로필</MenuItem>
-      <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
+      <Popover
+        id={open ? 'simple-popover' : undefined}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleMenuClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <MenuList>
+          <MenuItem onClick={handleProfile}> <Avatar /> 프로필</MenuItem>
+          <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
+        </MenuList>
+      </Popover>
+      
     </Menu>
   );
 
@@ -205,6 +232,7 @@ const Header = () => {
             Joshua AM
           </Typography>
           {!isMobile && (
+            <div>
             <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
               <Button color="inherit" onClick={() => { navigate("/") }} >홈</Button>
               <Button color="inherit" onClick={() => { navigate("/attendances") }} >출석</Button>
@@ -221,7 +249,26 @@ const Header = () => {
               >
                 <AccountCircle />
               </IconButton>
+
+              {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
+              {/* <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+              {/* <Tooltip title="계정"> */}
+                <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                >
+                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                </IconButton>
+              {/* </Tooltip> */}
             </Box>
+            {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}> */}
+              
+            {/* </Box> */}
+            </div>
           )}
         </Toolbar>
       </AppBar>

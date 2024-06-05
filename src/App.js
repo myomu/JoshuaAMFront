@@ -29,8 +29,8 @@ function App() {
     setHandleTokenExpired(() => {
       Cookies.remove("accessToken");
       dispatch(resetIsLogin(false));
-      dispatch(setUserInfo({info : null}));
-      dispatch(setRole({role : null}));
+      dispatch(setUserInfo(null));
+      dispatch(setRole(null));
       navigate("/login");
     });
   }, [navigate]);

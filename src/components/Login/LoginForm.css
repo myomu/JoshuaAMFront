@@ -54,8 +54,10 @@
 }
 
 .btn__login__join {
+  width: fit-content;
   color: #898989;
   cursor: pointer;
+  margin: 0 auto;
 }
 /* .btn-google {
     color: white !important;
