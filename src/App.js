@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect } from "react";
 import "./App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import AttendanceCheck from "./components/attendance/AttendanceCheck.jsx";
-import Home from "./Home.js";
+import Home from "./pages/Home.jsx";
 import LoginConfigContextProvider from "./config/LoginConfigContextProvider";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import Login from "./pages/Login.jsx";

@@ -180,8 +180,6 @@ const EditAttendanceCheck = () => {
   if (!loading) {
     return (
       <div className="container">
-        <p>출석수정 화면</p>
-
         <Form onSubmit={handleSubmit}>
           <Card>
             <Card.Body>
@@ -252,7 +250,6 @@ const EditAttendanceCheck = () => {
           </Card>
 
           <CheckboxGroup
-            label="출석체크 인원"
             values={memberIds}
             onChange={setMemberIds}
           >
@@ -277,7 +274,8 @@ const EditAttendanceCheck = () => {
                 ))
               : null}
           </CheckboxGroup>
-
+          
+          <div style={{marginBottom: "20px"}}>
           <Button
             variant="contained"
             type="submit"
@@ -295,6 +293,7 @@ const EditAttendanceCheck = () => {
           >
             취소
           </Button>
+          </div>
         </Form>
       </div>
     );

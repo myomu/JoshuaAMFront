@@ -151,7 +151,7 @@ const UserProfile = () => {
       <div className="edit__user__form card border-0 shadow rounded-3">
         <div className="card-body p-4 p-sm-5">
           <h5 className="edit__user__form__title card-title mb-5" onClick={goMain}>
-            JOSHUA
+            회원 정보
           </h5>
           <form onSubmit={(e) => onUpdate(e)}>
             <div className="form-floating mb-3">

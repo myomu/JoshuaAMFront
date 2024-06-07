@@ -4,8 +4,29 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LoginConfigContext } from "../../config/LoginConfigContextProvider";
 import { Container, Nav, Navbar, NavbarToggle } from "react-bootstrap";
-import { AppBar, Avatar, Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Popover, Toolbar, Tooltip, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  MenuList,
+  Popover,
+  Toolbar,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { AccountCircle, Logout } from "@mui/icons-material";
 import { GridMenuIcon } from "@mui/x-data-grid";
 
 const Header = () => {
@@ -17,14 +38,17 @@ const Header = () => {
   //   return state.isLogin.value;
   // });
 
+  const userName = useSelector((state) => {
+    return state.userInfo.info.userName.substring(0, 1).toUpperCase();
+  })
+
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   //
   const open = Boolean(anchorEl);
@@ -52,16 +76,16 @@ const Header = () => {
   };
 
   const handleProfile = () => {
-    navigate("/user/profile")
-  }
+    navigate("/user/profile");
+  };
 
   const handleLogout = () => {
-    console.log('Logged out');
+    console.log("Logged out");
     handleMenuClose();
     logout();
   };
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -71,32 +95,69 @@ const Header = () => {
       // transformOrigin={{ vertical: 'top', horizontal: 'bottom' }}
       open={Boolean(anchorEl)}
       onClose={handleMenuClose}
-      
+      slotProps={{
+        paper: {
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&::before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        },
+      }}
+      transformOrigin={{ horizontal: "right", vertical: "top" }}
+      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <Popover
+      {/* <Popover
         id={open ? 'simple-popover' : undefined}
         open={open}
         anchorEl={anchorEl}
         onClose={handleMenuClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'end',
         }}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
         }}
-      >
-        <MenuList>
-          <MenuItem onClick={handleProfile}> <Avatar /> 프로필</MenuItem>
-          <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
-        </MenuList>
-      </Popover>
-      
+      > */}
+      <MenuList>
+        <MenuItem onClick={handleProfile}>
+          {" "}
+          <Avatar /> 프로필
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          로그아웃
+        </MenuItem>
+      </MenuList>
+      {/* </Popover> */}
     </Menu>
   );
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = "primary-search-account-menu-mobile";
   // const renderMobileMenu = (
   //   <Menu
   //     anchorEl={mobileMoreAnchorEl}
@@ -124,11 +185,7 @@ const Header = () => {
   // );
 
   const drawer = (
-    <Drawer
-      anchor="left"
-      open={drawerOpen}
-      onClose={handleMenuClose}
-    >
+    <Drawer anchor="left" open={drawerOpen} onClose={handleMenuClose}>
       <Box
         sx={{ width: 250 }}
         role="presentation"
@@ -136,20 +193,45 @@ const Header = () => {
         onKeyDown={handleMenuClose}
       >
         <List>
-          <ListItem >
-            <ListItemText primary="홈" onClick={() => { navigate("/") }} />
+          <ListItem>
+            <ListItemText
+              primary="홈"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
           </ListItem>
-          <ListItem >
-            <ListItemText primary="출석" onClick={() => { navigate("/attendances") }} />
+          <ListItem>
+            <ListItemText
+              primary="출석"
+              onClick={() => {
+                navigate("/attendances");
+              }}
+            />
           </ListItem>
-          <ListItem >
-            <ListItemText primary="출석체크" onClick={() => { navigate("/attendanceCheck") }} />
+          <ListItem>
+            <ListItemText
+              primary="출석체크"
+              onClick={() => {
+                navigate("/attendanceCheck");
+              }}
+            />
           </ListItem>
-          <ListItem >
-            <ListItemText primary="회원" onClick={() => { navigate("/members") }} />
+          <ListItem>
+            <ListItemText
+              primary="회원"
+              onClick={() => {
+                navigate("/members");
+              }}
+            />
           </ListItem>
-          <ListItem >
-            <ListItemText primary="그룹" onClick={() => { navigate("/groups") }} />
+          <ListItem>
+            <ListItemText
+              primary="그룹"
+              onClick={() => {
+                navigate("/groups");
+              }}
+            />
           </ListItem>
         </List>
         <Divider />
@@ -216,58 +298,126 @@ const Header = () => {
     // </div>
 
     <div>
-      <AppBar position="static" style={{marginBottom: "30px"}}>
-        <Toolbar>
+      <AppBar
+        position="fixed"
+        style={{ boxShadow: "0px 0px 0px 1px rgba(0, 0, 0, 0.2)" }}
+      >
+        <Toolbar className="menu">
           {isMobile && (
+            <div className="mobileMenu">
             <IconButton
               edge="start"
               color="inherit"
               aria-label="open drawer"
               onClick={handleMobileMenuOpen}
             >
-              <GridMenuIcon />
+              <GridMenuIcon style={{ color: "black" }} />
             </IconButton>
-          )}
-          <Typography variant="h6" noWrap>
-            Joshua AM
-          </Typography>
-          {!isMobile && (
-            <div>
-            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <Button color="inherit" onClick={() => { navigate("/") }} >홈</Button>
-              <Button color="inherit" onClick={() => { navigate("/attendances") }} >출석</Button>
-              <Button color="inherit" onClick={() => { navigate("/attendanceCheck") }} >출석체크</Button>
-              <Button color="inherit" onClick={() => { navigate("/members") }} >회원</Button>
-              <Button color="inherit" onClick={() => { navigate("/groups") }} >그룹</Button>
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
+            <Typography
+                className="mobile__menu__title"
+                variant="h6"
+                noWrap
+                sx={{ overflow: "visible", color: "black" }}
               >
-                <AccountCircle />
-              </IconButton>
+                Joshua AM
+              </Typography>
+            </div>
+          )}
 
-              {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
-              {/* <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
-              {/* <Tooltip title="계정"> */}
-                <IconButton
-                onClick={handleClick}
-                size="small"
-                sx={{ ml: 2 }}
-                aria-controls={open ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
+          {!isMobile && (
+            <div className="menuItems">
+              <Typography
+                className="menu__title"
+                variant="h6"
+                noWrap
+                sx={{ overflow: "visible", color: "black" }}
+              >
+                Joshua AM
+              </Typography>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <Button
+                  className="menuItem"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/");
+                  }}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  홈
+                </Button>
+                <Button
+                  className="menuItem"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/attendances");
+                  }}
+                >
+                  출석
+                </Button>
+                <Button
+                  className="menuItem"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/attendanceCheck");
+                  }}
+                >
+                  출석체크
+                </Button>
+                <Button
+                  className="menuItem"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/members");
+                  }}
+                >
+                  회원
+                </Button>
+                <Button
+                  className="menuItem"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/groups");
+                  }}
+                >
+                  그룹
+                </Button>
+              </Box>
+              <Box>
+                {/* <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton> */}
+
+                {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
+                {/* <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+                {/* <Tooltip title="계정"> */}
+                <IconButton
+                  className="menuUser"
+                  onClick={handleClick}
+                  size="small"
+                  sx={{ ml: 2 }}
+                  aria-controls={open ? "account-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                >
+                  <Avatar sx={{ width: 32, height: 32 }}>{userName}</Avatar>
                 </IconButton>
-              {/* </Tooltip> */}
-            </Box>
-            {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}> */}
-              
-            {/* </Box> */}
+                {/* </Tooltip> */}
+              </Box>
+              {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}> */}
+
+              {/* </Box> */}
             </div>
           )}
         </Toolbar>

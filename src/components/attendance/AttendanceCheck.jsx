@@ -3,7 +3,7 @@ import { Form, Card, Col, Row } from "react-bootstrap";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
 import dayjs from "dayjs";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Header from "../Header/Header";
 import * as attendanceApi from "../../apis/attendanceApi";
 import * as Swal from "../../apis/alert";
@@ -212,7 +212,7 @@ const AttendanceCheck = () => {
                       {a.members
                         ? a.members.map((b, j) => (
                             // <Form.Check key={j} inline className="memberClass" type="checkbox" id={b.memberId} label={b.name} />
-                            <Checkbox key={j} value={b.memberId}>
+                            <Checkbox key={j} value={b.memberId} >
                               {b.name}
                             </Checkbox>
                           ))
@@ -229,6 +229,7 @@ const AttendanceCheck = () => {
           type="submit"
           className="btnSave"
           disabled={memberIds.length === 0}
+          style={{marginBottom: 10}}
         >
           출석 추가
         </Button>

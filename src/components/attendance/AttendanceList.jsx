@@ -39,7 +39,7 @@ const AttendanceList = () => {
         return (
           <Box sx={{
             marginTop: "7px",
-            marginBottom: "7px"
+            marginBottom: "7px",
           }}
             // sx={{
             //   whiteSpace: 'normal',
@@ -51,7 +51,7 @@ const AttendanceList = () => {
             // }}
           >
             {params.value.map((member, index) => (
-              <Box key={index} style={{ display: "inline-block", marginRight: "10px"}}>
+              <Box key={index} style={{ display: "inline-block", marginRight: "10px", minWidth: "38px"}}>
                 {member.memberName}
               </Box>
             ))}

@@ -30,7 +30,11 @@ export function Checkbox({ children, disabled, value, checked, onChange }) {
           toggleValue({ checked: event.target.checked, value })
         }
         id={children}
-        label={children}
+        label={
+          <div style={{minWidth: "42px"}}>
+            {children}
+          </div>
+        }
       />
     );
   }
