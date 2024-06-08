@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as attendanceApi from "../../apis/attendanceApi";
 import * as Swal from "../../apis/alert";
-import { DataGrid, GridToolbarContainer, GridToolbarExport } from "@mui/x-data-grid";
+import { DataGrid, GridToolbarContainer } from "@mui/x-data-grid";
+import "./AttendanceList.css";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { AddOutlined, RemoveOutlined } from "@mui/icons-material";
 dayjs.extend(utc);
 
 const AttendanceList = () => {
@@ -23,57 +25,66 @@ const AttendanceList = () => {
   };
 
   const columns = [
-    { field: "attendanceDate", headerName: "날짜", width: "200",
+    {
+      field: "attendanceDate",
+      headerAlign: "center",
+      headerName: "날짜",
+      minWidth: 100,
+      flex: 1,
       renderCell: (params) => (
-        <div style={{height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
-          {params = dayjs.utc(params.value).local().format("YYYY-MM-DD")}
+        <div className="tableItem">
+          {(params = dayjs.utc(params.value).local().format("YYYY-MM-DD"))}
         </div>
       ),
+    },
+    {
+      field: "attendanceDataDtoList",
       headerAlign: "center",
-     },
-    { field: "attendanceDataDtoList", headerName: "출석인원", width: "500",
-      headerAlign: "center",
+      headerName: "출석인원",
+      minWidth: 400,
+      flex: 3,
       renderCell: (params) => {
         // const names = params.value.map((member) => member.memberName).join("     ");
         // return <span>{names}</span>
         return (
-          <Box sx={{
-            marginTop: "7px",
-            marginBottom: "7px",
-          }}
-            // sx={{
-            //   whiteSpace: 'normal',
-            //   wordWrap: 'break-word',
-            //   display: 'flex',
-            //   flexDirection: 'column',
-            //   maxHeight: '150px',
-            //   overflow: 'auto',
-            // }}
+          <Box
+            sx={{
+              marginTop: "7px",
+              marginBottom: "7px",
+            }}
           >
             {params.value.map((member, index) => (
-              <Box key={index} style={{ display: "inline-block", marginRight: "10px", minWidth: "38px"}}>
+              <Box
+                key={index}
+                style={{
+                  display: "inline-block",
+                  marginRight: "10px",
+                  minWidth: "38px",
+                }}
+              >
                 {member.memberName}
               </Box>
             ))}
           </Box>
-        )
-      }
-      
-     },
-    { field: "totalMember", headerName: "총인원",
+        );
+      },
+    },
+    {
+      field: "totalMember",
       headerAlign: "center",
-      renderCell: (params) => (
-        <div style={{height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
-          {params.value}
-        </div>
-      )
-     },
+      headerName: "총인원",
+      minWidth: 100,
+      flex: 0.5,
+      renderCell: (params) => <div className="tableItem">{params.value}</div>,
+    },
     {
       field: "edit",
-      headerName: "수정",
       headerAlign: "center",
+      headerName: "수정",
+      minWidth: 100,
+      flex: 1,
       renderCell: (params) => (
-        <div style={{height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <div className="tableItem">
           <Button
             color="primary"
             variant="contained"
@@ -139,29 +150,44 @@ const AttendanceList = () => {
 
   return (
     <>
-      <div>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          getRowHeight={() => "auto"}
-          checkboxSelection
-          onRowSelectionModelChange={(selection) => {
-            handleSelectAttendance(selection);
-          }}
-          disableColumnMenu
-          // slotProps={{
-          //   toolbar: { csvOptions: { fields: ["name", "birthdate", "gender", "groupName", "memberStatus", "attendanceRate"]}}
-          // }}
-          slots={{
-            toolbar: () => (
-              <CustomToolbar
-                attendanceIds={attendanceIds}
-                deleteAttendance={deleteAttendance}
-              />
-            ),
-          }}
-        />
-      </div>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        getRowHeight={() => "auto"} // row 안의 data가 다음 줄로 가도록 높이 사이즈를 자동으로 조절해줌.
+        checkboxSelection
+        onRowSelectionModelChange={(selection) => {
+          handleSelectAttendance(selection);
+        }}
+        disableColumnMenu
+        // slotProps={{
+        //   toolbar: { csvOptions: { fields: ["name", "birthdate", "gender", "groupName", "memberStatus", "attendanceRate"]}}
+        // }}
+        slots={{
+          toolbar: () => (
+            <CustomToolbar
+              attendanceIds={attendanceIds}
+              deleteAttendance={deleteAttendance}
+            />
+          ),
+        }}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 10,
+            },
+          },
+        }}
+        pageSizeOptions={[10, 25, 50]}
+        autoHeight
+        sx={{
+          "& .MuiDataGrid-cell:focus": { outline: "none" },
+          "& .MuiDataGrid-columnHeader:focus": { outline: "none" },
+          "& .MuiDataGrid-columnHeader:focus-within": {
+            outline: "none", // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
+          },
+        }}
+      />
+      <br></br>
     </>
   );
 };
@@ -173,18 +199,26 @@ const CustomToolbar = ({ attendanceIds, deleteAttendance }) => {
 
   return (
     <GridToolbarContainer>
-      <GridToolbarExport />
-      <Button onClick={() => navigate("/attendanceCheck")}>출석추가</Button>
+      <Button onClick={() => navigate("/attendanceCheck")}>
+        <AddOutlined />
+        출석추가
+      </Button>
       <Button
         onClick={() => {
-          Swal.confirm("출석을 삭제하시겠습니까?", "", "warning", (result) => {
-            if (result.isConfirmed) {
-              deleteAttendance(attendanceIds);
+          Swal.confirm(
+            "출석 삭제",
+            "출석을 삭제하시겠습니까?",
+            "warning",
+            (result) => {
+              if (result.isConfirmed) {
+                deleteAttendance(attendanceIds);
+              }
             }
-          });
+          );
         }}
         disabled={attendanceIds.length === 0}
       >
+        <RemoveOutlined />
         출석삭제
       </Button>
     </GridToolbarContainer>

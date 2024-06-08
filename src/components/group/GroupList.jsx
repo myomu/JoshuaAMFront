@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DataGrid, GridToolbarContainer, GridToolbarExport } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import * as Swal from "../../apis/alert";
 import * as groupApi from "../../apis/groupApi";
+import { AddOutlined, RemoveOutlined } from "@mui/icons-material";
 
 function Groups() {
   let navigate = useNavigate();
@@ -12,18 +17,30 @@ function Groups() {
   const [groupIds, setGroupIds] = useState([]);
 
   const columns = [
-    { field: "groupName", headerName: "그룹이름" },
+    {
+      field: "groupName",
+      headerAlign: "center",
+      headerName: "그룹이름",
+      minWidth: 100,
+      flex: 1,
+      renderCell: (params) => <div className="tableItem">{params.value}</div>,
+    },
     {
       field: "edit",
+      headerAlign: "center",
       headerName: "수정",
+      minWidth: 100,
+      flex: 1,
       renderCell: (params) => (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => navigate(`edit/${params.row.groupId}`)}
-        >
-          수정
-        </Button>
+        <div className="tableItem">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => navigate(`edit/${params.row.groupId}`)}
+          >
+            수정
+          </Button>
+        </div>
       ),
     },
   ];
@@ -78,7 +95,7 @@ function Groups() {
   }, []);
 
   return (
-    <div>
+    <>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -87,16 +104,30 @@ function Groups() {
           handleSelectGroup(selection);
         }}
         disableColumnMenu
-        // slotProps={{
-        //   toolbar: { csvOptions: { fields: ["name", "birthdate", "gender", "groupName", "memberStatus", "attendanceRate"]}}
-        // }}
         slots={{
           toolbar: () => (
             <CustomToolbar groupIds={groupIds} deleteGroup={deleteGroup} />
           ),
         }}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 10,
+            },
+          },
+        }}
+        pageSizeOptions={[10, 25, 50]}
+        autoHeight
+        sx={{
+          "& .MuiDataGrid-cell:focus": { outline: "none" },
+          "& .MuiDataGrid-columnHeader:focus": { outline: "none" },
+          "& .MuiDataGrid-columnHeader:focus-within": {
+            outline: "none", // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
+          },
+        }}
       />
-    </div>
+      <br></br>
+    </>
   );
 }
 
@@ -107,11 +138,14 @@ const CustomToolbar = ({ groupIds, deleteGroup }) => {
 
   return (
     <GridToolbarContainer>
-      <GridToolbarExport />
-      <Button onClick={() => navigate("create")}>그룹추가</Button>
+      {/* <GridToolbarExport /> */}
+      <Button onClick={() => navigate("create")}>
+        <AddOutlined />
+        그룹추가
+      </Button>
       <Button
         onClick={() => {
-          Swal.confirm("그룹을 삭제하시겠습니까?", "", "warning", (result) => {
+          Swal.confirm("그룹 삭제", "그룹을 삭제하시겠습니까?", "warning", (result) => {
             if (result.isConfirmed) {
               deleteGroup(groupIds);
             }
@@ -119,6 +153,7 @@ const CustomToolbar = ({ groupIds, deleteGroup }) => {
         }}
         disabled={groupIds.length === 0}
       >
+        <RemoveOutlined />
         그룹삭제
       </Button>
     </GridToolbarContainer>

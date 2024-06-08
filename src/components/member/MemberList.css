@@ -1,0 +1,13 @@
+.datePicker {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 0 auto;
+}
+
+.tableItem {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

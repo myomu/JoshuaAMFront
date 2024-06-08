@@ -103,6 +103,7 @@
   flex-direction: row;
   width: 100%;
   align-items: center;
+  text-wrap: nowrap;
   /* justify-content: space-between; */
 }
 
@@ -125,4 +126,10 @@
 .mobile__menu__title {
   font-family: 'YEONGJUSeonbiTTF', sans-serif !important;
   margin-left: 30px !important;
+}
+
+.mobile__menu__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
