@@ -5,7 +5,6 @@ import { DesktopDatePicker } from "@mui/x-date-pickers";
 import {
   DataGrid,
   GridToolbarContainer,
-  GridToolbarExport,
 } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import * as memberApi from "../../apis/memberApi";
@@ -19,7 +18,6 @@ dayjs.extend(utc);
 const MemberList = () => {
   const navigate = useNavigate();
 
-  // const [members, setMembers] = useState("");
   const [memberIds, setMemberIds] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -132,7 +130,7 @@ const MemberList = () => {
         <div className="tableItem">
           <Button
             color="primary"
-            variant="contained"
+            variant="text"
             onClick={() => navigate(`edit/${params.row.memberId}`)}
           >
             수정

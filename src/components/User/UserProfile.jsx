@@ -1,35 +1,62 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './UserProfile.css';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import * as auth from "../../apis/auth";
+import { useDispatch, useSelector } from 'react-redux';
+import * as Auth from "../../apis/auth";
 import * as Swal from '../../apis/alert';
 import { LoginConfigContext } from '../../config/LoginConfigContextProvider';
+import { setUserInfo } from '../../config/store';
 
 const UserProfile = () => {
 
-  const { loginCheck, logoutSetting } = useContext(LoginConfigContext);
+  const { logoutSetting } = useContext(LoginConfigContext);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const goMain = () => {
     navigate("/");
   }
 
+  // 프로필 화면 렌더링 시 userInfo를 다시 받아올 수 있도록 설정
+  const refreshUserInfo = async () => {
+
+    let response;
+    let data;
+
+    try {
+      response = await Auth.info();
+    } catch (error) {
+      console.error(`error: ${error}`);
+      return;
+    }
+
+    data = response.data;
+    const { id, userLoginId, auth, userName, email } = data;
+    const updatedUserInfo = { id, userLoginId, auth, userName, email };
+    dispatch(setUserInfo(updatedUserInfo));
+
+  }
+
+  useEffect(() => {
+    refreshUserInfo();
+  }, [])
+
   const userInfo = useSelector((state) => {
     return state.userInfo.info;
   })
 
+  // 사용자 정보 수정 요청 보냄
   const updateUser = async (form) => {
 
     let response;
     try {
-      response = await auth.updateUser(form);
+      response = await Auth.updateUser(form);
     } catch (error) {
       console.error(`${error}`);
-      console.error(`회원 정보 수정 중 에러가 발생했습니다.`);
+      console.error(`계정 정보 수정 중 에러가 발생했습니다.`);
       if (error.response.status === 400) {
-        Swal.alert("회원 정보 수정 실패", error.response.data, "error");
+        Swal.alert("계정 정보 수정 실패", error.response.data, "error");
       }
       return;
     }
@@ -37,22 +64,23 @@ const UserProfile = () => {
     const status = response.status;
 
     if (status === 200) {
-      alert("회원 정보 수정 성공");
-      loginCheck();
+      alert("계정 정보 수정 성공");
+      dispatch(setUserInfo(form));
       window.location.replace("/user/profile");
     }
   }
 
+  // 사용자 탈퇴
   const deleteUser = async (form) => {
 
     let response;
     try {
-      response = await auth.removeUser(form);
+      response = await Auth.removeUser(form);
     } catch (error) {
       console.error(`${error}`);
-      console.error(`회원 탈퇴에 실패했습니다.`);
+      console.error(`계정 탈퇴에 실패했습니다.`);
       if (error.response.status === 400) {
-        Swal.alert("회원 탈퇴 실패", error.response.data, "error");
+        Swal.alert("계정 탈퇴 실패", error.response.data, "error");
       }
       return;
     }
@@ -60,7 +88,7 @@ const UserProfile = () => {
     const status = response.status;
 
     if (status === 200) {
-      alert("회원 탈퇴 성공");
+      alert("계정 탈퇴 성공");
       logoutSetting();
       navigate("/");
     }
@@ -84,74 +112,11 @@ const UserProfile = () => {
   };
 
   return (
-    // <div className="form">
-    //   <h2 className="login-title">UserInfo</h2>
-
-    //   <form className="login-form" onSubmit={(e) => onUpdate(e)}>
-    //     <div>
-    //       <label htmlFor="username">Username</label>
-    //       <input
-    //         id="username"
-    //         type="text"
-    //         placeholder="Username"
-    //         name="username"
-    //         autoComplete="username"
-    //         required
-    //         readOnly
-    //         defaultValue={userInfo?.userId}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="password">Password</label>
-    //       <input
-    //         id="password"
-    //         type="password"
-    //         placeholder="Password"
-    //         name="password"
-    //         autoComplete="current-password"
-    //         required
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="name">Name</label>
-    //       <input
-    //         id="name"
-    //         type="text"
-    //         placeholder="Name"
-    //         name="name"
-    //         autoComplete="name"
-    //         required
-    //         defaultValue={userInfo?.name}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="email">Email</label>
-    //       <input
-    //         id="email"
-    //         type="email"
-    //         placeholder="Email"
-    //         name="email"
-    //         autoComplete="email"
-    //         required
-    //         defaultValue={userInfo?.email}
-    //       />
-    //     </div>
-
-    //     <button className="btn btn--form btn-login" type="submit">
-    //         정보 수정
-    //     </button>
-    //     <button className="btn btn--form btn-login" type="button" 
-    //         onClick={ () => deleteUser(userInfo.userId) }>
-    //           회원 탈퇴
-    //     </button>
-    //   </form>
-    // </div>
-
     <div className="content">
       <div className="edit__user__form card border-0 shadow rounded-3">
         <div className="card-body p-4 p-sm-5">
           <h5 className="edit__user__form__title card-title mb-5" onClick={goMain}>
-            회원 정보
+            계정 정보
           </h5>
           <form onSubmit={(e) => onUpdate(e)}>
             <div className="form-floating mb-3">
@@ -220,7 +185,7 @@ const UserProfile = () => {
                 className="btn btn-primary btn__edit text-uppercase fw-bold"
                 type="submit"
               >
-                회원 정보 수정
+                계정 정보 수정
               </button>
             </div>
 
@@ -228,8 +193,8 @@ const UserProfile = () => {
             <div className="btn__delete__account" type="button" 
             onClick={() => {
               Swal.confirm(
-                "회원 탈퇴",
-                "회원 탈퇴 하시겠습니까?",
+                "계정 탈퇴",
+                "계정 탈퇴 하시겠습니까?",
                 "warning",
                 (result) => {
                   if (result.isConfirmed) {
@@ -238,9 +203,8 @@ const UserProfile = () => {
                 }
               )
             }}>
-              회원 탈퇴
+              계정 탈퇴
             </div>
-            {/* <div className="error-message mt-3"></div> */}
           </form>
         </div>
       </div>

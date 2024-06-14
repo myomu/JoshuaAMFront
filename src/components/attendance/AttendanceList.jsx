@@ -87,7 +87,7 @@ const AttendanceList = () => {
         <div className="tableItem">
           <Button
             color="primary"
-            variant="contained"
+            variant="text"
             onClick={() => navigate(`edit/${params.row.attendanceId}`)}
           >
             수정

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
   DataGrid,
   GridToolbarContainer,
-  GridToolbarExport,
 } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import * as Swal from "../../apis/alert";
@@ -35,7 +34,7 @@ function Groups() {
         <div className="tableItem">
           <Button
             color="primary"
-            variant="contained"
+            variant="text"
             onClick={() => navigate(`edit/${params.row.groupId}`)}
           >
             수정
