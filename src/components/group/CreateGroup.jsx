@@ -84,7 +84,7 @@ const CreateGroup = () => {
           </Form.Group>
         </Row>
 
-        <Button variant="contained" type="submit" className="btnSave">
+        <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
           저장
         </Button>
         <Button
@@ -93,6 +93,7 @@ const CreateGroup = () => {
             navigate("/groups");
           }}
           className="btnCancel"
+          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
         >
           취소
         </Button>

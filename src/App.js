@@ -12,12 +12,15 @@ import { setHandleTokenExpired } from "./apis/api.js";
 import { useDispatch } from "react-redux";
 import { resetIsLogin, setRole, setUserInfo } from "./config/store.js";
 import Cookies from "js-cookie";
+import Members from "./components/member/Members.jsx";
+import Attendances from "./components/attendance/Attendances.jsx";
+import Groups from "./components/group/Groups.jsx";
 
-const Attendances = lazy(() =>
-  import("./components/attendance/Attendances.jsx")
-);
-const Members = lazy(() => import("./components/member/Members.jsx"));
-const Groups = lazy(() => import("./components/group/Groups.jsx"));
+// const Attendances = lazy(() =>
+//   import("./components/attendance/Attendances.jsx")
+// );
+// const Members = lazy(() => import("./components/member/Members.jsx"));
+// const Groups = lazy(() => import("./components/group/Groups.jsx"));
 
 function App() {
 
@@ -37,13 +40,10 @@ function App() {
 
   return (
       <LoginConfigContextProvider>
-          {/* <NavbarComponents/> */}
-          {/* <SidebarMenu/> */}
           <div className="container">
-            <Suspense fallback={<div>로딩중임</div>}>
+            {/* <Suspense fallback={ <Loading /> }> */}
               <Routes>
                 {/* 권한이 필요없는 Route. */}
-                {/* <Route path="/" element={<Home />} /> */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/join" element={<Join />} />
                 {/* 권한이 필요한 Route. PrivateRoute 를 만들어 적용시켜 주었다. */}
@@ -56,7 +56,7 @@ function App() {
                   <Route path="/user/profile" element={<UserProfile />} />
                 </Route>
               </Routes>
-            </Suspense>
+            {/* </Suspense> */}
           </div>
       </LoginConfigContextProvider>
   );

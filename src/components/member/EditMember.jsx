@@ -272,7 +272,7 @@ const EditMember = () => {
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
-        <Button variant="contained" type="submit" className="btnSave">
+        <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
           저장
         </Button>
         <Button
@@ -281,6 +281,7 @@ const EditMember = () => {
             navigate("/members");
           }}
           className="btnCancel"
+          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
         >
           취소
         </Button>

@@ -36,6 +36,7 @@ function Groups() {
             color="primary"
             variant="text"
             onClick={() => navigate(`edit/${params.row.groupId}`)}
+            style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
           >
             수정
           </Button>

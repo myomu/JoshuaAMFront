@@ -229,7 +229,7 @@ const AttendanceCheck = () => {
           type="submit"
           className="btnSave"
           disabled={memberIds.length === 0}
-          style={{marginBottom: 10}}
+          style={{ marginBottom: 10, fontFamily: 'GangwonEdu_OTFBoldA' }}
         >
           출석 추가
         </Button>

@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, LinearProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as attendanceApi from "../../apis/attendanceApi";
@@ -72,7 +72,7 @@ const AttendanceList = () => {
     {
       field: "totalMember",
       headerAlign: "center",
-      headerName: "총인원",
+      headerName: "출석수",
       minWidth: 100,
       flex: 0.5,
       renderCell: (params) => <div className="tableItem">{params.value}</div>,
@@ -89,6 +89,7 @@ const AttendanceList = () => {
             color="primary"
             variant="text"
             onClick={() => navigate(`edit/${params.row.attendanceId}`)}
+            style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
           >
             수정
           </Button>
@@ -186,6 +187,7 @@ const AttendanceList = () => {
             outline: "none", // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
           },
         }}
+        pagination
       />
       <br></br>
     </>

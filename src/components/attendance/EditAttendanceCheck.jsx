@@ -281,12 +281,13 @@ const EditAttendanceCheck = () => {
             type="submit"
             className="btnSave"
             disabled={memberIds.length === 0}
+            style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
           >
             저장
           </Button>
           <Button
             variant="contained"
-            style={{ marginLeft: "5px" }}
+            style={{ marginLeft: "5px", fontFamily: 'GangwonEdu_OTFBoldA' }}
             onClick={() => {
               navigate("/attendances");
             }}

@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Header from "../Header/Header";
+import Loading from "../Loading/Loading";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -20,7 +21,7 @@ const Members = () => {
   return (
     <>
       <Header />
-      <Suspense fallback={<div>로딩중임</div>}>
+      <Suspense fallback={ <Loading /> }>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ko">
           <Routes>
             <Route path="/" element={<MemberList />} />

@@ -102,7 +102,7 @@ const EditGroup = () => {
           </Form.Group>
         </Row>
 
-        <Button variant="contained" type="submit" className="btnSave">
+        <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
           저장
         </Button>
         <Button
@@ -111,6 +111,7 @@ const EditGroup = () => {
             navigate("/groups");
           }}
           className="btnCancel"
+          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
         >
           취소
         </Button>

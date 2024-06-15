@@ -102,7 +102,7 @@ const MemberList = () => {
           <div
             style={{
               position: "absolute",
-              top: 2,
+              top: '15%',
               left: 0,
               width: "100%",
               height: "100%",
@@ -113,7 +113,6 @@ const MemberList = () => {
               fontWeight: "bold",
             }}
           >
-            {/* {`${Math.round(params.value)}%`} */}
             {`${params.value}%`}
           </div>
         </div>
@@ -132,6 +131,7 @@ const MemberList = () => {
             color="primary"
             variant="text"
             onClick={() => navigate(`edit/${params.row.memberId}`)}
+            style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
           >
             수정
           </Button>
@@ -220,6 +220,7 @@ const MemberList = () => {
           className="btn__datepicker__cancel mb-2"
           variant="contained"
           onClick={cancelDatePicker}
+          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
         >
           취소
         </Button>
