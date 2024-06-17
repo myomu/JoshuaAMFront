@@ -24,60 +24,6 @@ const JoinForm = ({ join }) => {
   }
 
   return (
-    // <div className="form">
-    //   <h2 className="login-title">Join</h2>
-
-    //   <form className="login-form" onSubmit={(e) => onJoin(e)}>
-    //     <div>
-    //       <label htmlFor="username">Username</label>
-    //       <input
-    //         id="username"
-    //         type="text"
-    //         placeholder="Username"
-    //         name="username"
-    //         autoComplete="username"
-    //         required
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="password">Password</label>
-    //       <input
-    //         id="password"
-    //         type="password"
-    //         placeholder="Password"
-    //         name="password"
-    //         autoComplete="current-password"
-    //         required
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="name">Name</label>
-    //       <input
-    //         id="name"
-    //         type="text"
-    //         placeholder="Name"
-    //         name="name"
-    //         autoComplete="name"
-    //         required
-    //       />
-    //     </div>
-    //     <div>
-    //       <label htmlFor="email">Email</label>
-    //       <input
-    //         id="email"
-    //         type="email"
-    //         placeholder="Email"
-    //         name="email"
-    //         autoComplete="email"
-    //         required
-    //       />
-    //     </div>
-
-    //     <button className="btn btn--form btn-login" type="submit">
-    //       Join
-    //     </button>
-    //   </form>
-    // </div>
     <div className="content">
       <div className="join__form card border-0 shadow rounded-3">
         <div className="card-body p-4 p-sm-5">
@@ -155,7 +101,7 @@ const JoinForm = ({ join }) => {
                 className="btn btn-primary btn__login text-uppercase fw-bold"
                 type="submit"
               >
-                회원가입
+                계정 등록
               </button>
             </div>
 

@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
 import * as memberApi from "../../apis/memberApi";
 import * as groupApi from "../../apis/groupApi";
 import dayjs from "dayjs";
 import * as Swal from "../../apis/alert";
-import "./CreateOrEditMember.css"
+import "./CreateOrEditMember.css";
 
 const CreateMember = () => {
-
   let navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -23,7 +21,7 @@ const CreateMember = () => {
     name: true,
     birthdate: true,
     gender: true,
-    group: true
+    group: true,
   });
 
   const nameChange = (e) => {
@@ -42,7 +40,6 @@ const CreateMember = () => {
       }
       setBirthdate(formatted);
     }
-    
   };
 
   const genderChange = (e) => {
@@ -51,7 +48,7 @@ const CreateMember = () => {
 
   const groupChange = (e) => {
     setGroup(e.target.value);
-  }
+  };
 
   // 생년월일이 유효한 값인지 확인하기 위한 함수.
   const birthdateValidation = () => {
@@ -63,11 +60,24 @@ const CreateMember = () => {
 
     if (month < 1 || month > 12) return false;
 
-    const daysInMonth = [31, (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    const daysInMonth = [
+      31,
+      (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0 ? 29 : 28,
+      31,
+      30,
+      31,
+      30,
+      31,
+      31,
+      30,
+      31,
+      30,
+      31,
+    ];
     if (day < 1 || day > daysInMonth[month - 1]) return false;
 
     return true;
-  }
+  };
 
   // 회원 목록 요청
   const getGroups = async () => {
@@ -96,7 +106,7 @@ const CreateMember = () => {
   // valid 변경 함수
   const changeValid = (key, value) => {
     setIsValid((valid) => {
-      let newValid = {...valid};
+      let newValid = { ...valid };
       newValid[key] = value;
       return newValid;
     });
@@ -104,7 +114,6 @@ const CreateMember = () => {
 
   // validation 체크 함수
   const validationCheck = () => {
-    
     if (!name) {
       // setNameIsValid(false);
       changeValid("name", false);
@@ -113,7 +122,7 @@ const CreateMember = () => {
       // setNameIsValid(true);
       changeValid("name", true);
     }
-    
+
     if (birthdate.length <= 9 || !birthdateValidation()) {
       // setBirthdateIsValid(false);
       changeValid("birthdate", false);
@@ -145,17 +154,14 @@ const CreateMember = () => {
   };
 
   useEffect(() => {
-
     getGroups();
-    
   }, []);
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
 
     const convertBirthdate = dayjs(birthdate, "YYYY.MM.DD").toDate();
-    
+
     if (validationCheck()) {
       createMember({ name, birthdate: convertBirthdate, gender, group });
     }
@@ -195,12 +201,14 @@ const CreateMember = () => {
             />
             <Form.Control.Feedback type="invalid">
               {/* 생년월일을 입력해주세요. */}
-              {birthdateValidation() ? "생년월일을 입력해주세요." : "생년월일이 정확한지 확인해 주세요."}
+              {birthdateValidation()
+                ? "생년월일을 입력해주세요."
+                : "생년월일이 정확한지 확인해 주세요."}
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="gender">
+          <Form.Group as={Col} controlId="gender" className="genderSelect">
             {/* <Form.Label>성별</Form.Label> */}
             <div id={"inline-radio"} className="form-check">
               <Form.Check
@@ -234,7 +242,11 @@ const CreateMember = () => {
         <Row className="mb-3">
           <Form.Group as={Col} controlId="group">
             {/* <Form.Label>그룹</Form.Label> */}
-            <Form.Select onChange={groupChange} required isInvalid={!isValid.group}>
+            <Form.Select
+              onChange={groupChange}
+              required
+              isInvalid={!isValid.group}
+            >
               <option value="">그룹 없음</option>
               {groups
                 ? groups.map((a, i) => (
@@ -249,22 +261,26 @@ const CreateMember = () => {
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
-        <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
-          저장
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => {
-            navigate("/members");
-          }}
-          className="btnCancel"
-          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
-        >
-          취소
-        </Button>
+        <ButtonGroup>
+          <Button
+            onClick={() => {
+              navigate("/members");
+            }}
+            className="btnCancel"
+          >
+            취소
+          </Button>
+          <Button
+            variant="primary"
+            type="submit"
+            className="btnSave"
+          >
+            저장
+          </Button>
+        </ButtonGroup>
       </Form>
     </div>
   );
-}
+};
 
 export default CreateMember;

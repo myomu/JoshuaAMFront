@@ -37,13 +37,13 @@
   }
 } */
 
-.btnSave {
+/* .btnSave {
   margin: 5px;
 }
 
 .btnCancel {
   margin: 5px;
-}
+} */
 
 .customTable {
   min-width: 576px;
@@ -109,5 +109,44 @@
   font-size: 14px !important;
 }
 
+/* CreateGroup */
+.btnWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
 
+.btnSave {
+  width: 100%;
+  margin-left: 2px !important;
+
+}
+
+.btnCancel {
+  width: 100%;
+  margin-right: 2px !important;
+  background-color: #c5c5c5;
+  border: 1px solid #c5c5c5;
+}
+
+.btnCancel:hover {
+  background-color: #909090;
+  border: 1px solid #909090;
+}
+
+.btnCancel:active {
+  background-color: #7d7d7d !important;
+  border: 1px solid #7d7d7d !important;
+}
+
+.btnCancel:focus {
+  background-color: #7d7d7d !important;
+  border: 1px solid #7d7d7d !important;
+}
+
+/* CreateMember */
+.genderSelect {
+  text-align: center;
+}
 

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Form, Card, Col, Row } from "react-bootstrap";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
-import dayjs from "dayjs";
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import Header from "../Header/Header";
 import * as attendanceApi from "../../apis/attendanceApi";
 import * as Swal from "../../apis/alert";
+import dayjs from "dayjs";
 
 const AttendanceCheck = () => {
   const [members, setMembers] = useState("");
@@ -41,15 +41,9 @@ const AttendanceCheck = () => {
   };
 
   useEffect(() => {
-    // api
-    //   .get(`/attendances/check`)
-    //   .then((response) => {
-    //     setMembers(response.data);
-    //     console.log("---");
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => console.log(error));
+
     getAttendanceCheck();
+
   }, []);
 
   const handleSubmit = (e) => {
@@ -82,21 +76,6 @@ const AttendanceCheck = () => {
 
     createAttendance(formData);
 
-    // api
-    //   .post(`/attendances/create`, formData, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     alert("출석 추가에 성공하였습니다.");
-    //     window.location.replace("/attendances");
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //     alert("출석 추가에 실패하였습니다.");
-    //   });
   };
 
   const handleSwitchChange = () => {
@@ -130,17 +109,16 @@ const AttendanceCheck = () => {
       <Form onSubmit={handleSubmit}>
         <Card>
           <Card.Body>
-            <p>수동 날짜 입력</p>
+            <p>날짜 선택</p>
             <Form.Group>
               <Form.Check
                 type="switch"
                 id="custom-switch"
                 label={
                   <span>
-                    날짜 입력
                     <small>
                       {" "}
-                      - 수동 입력을 하지 않을 시 현재 날짜를 기준으로
+                      - 선택을 하지 않을 시 현재 날짜를 기준으로
                       저장합니다.
                     </small>
                   </span>

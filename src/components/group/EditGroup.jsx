@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import * as groupApi from "../../apis/groupApi";
 import * as Swal from "../../apis/alert";
 import "./CreateOrEditGroup.css";
@@ -102,7 +102,7 @@ const EditGroup = () => {
           </Form.Group>
         </Row>
 
-        <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
+        {/* <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
           저장
         </Button>
         <Button
@@ -114,7 +114,27 @@ const EditGroup = () => {
           style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
         >
           취소
-        </Button>
+        </Button> */}
+        <ButtonGroup>
+          <Button
+            // variant="contained"
+            variant="secondary"
+            onClick={() => {
+              navigate("/groups");
+            }}
+            className="btnCancel"
+          >
+            취소
+          </Button>
+          <Button
+            // variant="contained"
+            variant="primary"
+            type="submit"
+            className="btnSave"
+          >
+            저장
+          </Button>
+        </ButtonGroup>
       </Form>
     </div>
   );

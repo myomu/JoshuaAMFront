@@ -1,7 +1,7 @@
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import * as groupApi from "../../apis/groupApi";
 import * as Swal from "../../apis/alert";
 import "./CreateOrEditGroup.css";
@@ -35,15 +35,14 @@ const CreateGroup = () => {
   // valid 변경 함수
   const changeValid = (key, value) => {
     setIsValid((valid) => {
-      let newValid = {...valid};
+      let newValid = { ...valid };
       newValid[key] = value;
       return newValid;
     });
-  }
+  };
 
   // validation 체크 함수
   const validationCheck = () => {
-    
     if (!groupName) {
       changeValid("groupName", false);
       return false;
@@ -55,13 +54,11 @@ const CreateGroup = () => {
   };
 
   const handleSubmit = (event) => {
-
     event.preventDefault(); //페이지 리로드 방지.
 
     if (validationCheck()) {
       createGroup({ groupName });
     }
-
   };
 
   return (
@@ -84,22 +81,31 @@ const CreateGroup = () => {
           </Form.Group>
         </Row>
 
-        <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
-          저장
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => {
-            navigate("/groups");
-          }}
-          className="btnCancel"
-          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
-        >
-          취소
-        </Button>
+        {/* <div className="btnWrapper"> */}
+        <ButtonGroup>
+          <Button
+            // variant="contained"
+            variant="secondary"
+            onClick={() => {
+              navigate("/groups");
+            }}
+            className="btnCancel"
+          >
+            취소
+          </Button>
+          <Button
+            // variant="contained"
+            variant="primary"
+            type="submit"
+            className="btnSave"
+          >
+            저장
+          </Button>
+        </ButtonGroup>
+        {/* </div> */}
       </Form>
     </div>
   );
-}
+};
 
 export default CreateGroup;

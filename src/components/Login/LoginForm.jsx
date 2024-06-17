@@ -73,7 +73,7 @@ const LoginForm = () => {
           </form>
           <hr className="mt-3" />
           <div className="btn__login__join text-center" onClick={toJoin}>
-            회원가입
+            계정 등록
           </div>
         </div>
       </div>

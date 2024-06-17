@@ -248,6 +248,7 @@ const MemberList = () => {
         pageSizeOptions={[10, 25, 50]}
         autoHeight
         sx={{
+          "& .MuiDataGrid-cellCheckbox:focus-within": {outline: "none"},
           "& .MuiDataGrid-cell:focus": { outline: "none" },
           "& .MuiDataGrid-columnHeader:focus": { outline: "none" },
           '& .MuiDataGrid-columnHeader:focus-within': {
