@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Form, Card, Col, Row } from "react-bootstrap";
+import { Form, Card, Col, Row, Button } from "react-bootstrap";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
-import { Button } from "@mui/material";
 import Header from "../Header/Header";
 import * as attendanceApi from "../../apis/attendanceApi";
 import * as Swal from "../../apis/alert";
@@ -41,9 +40,7 @@ const AttendanceCheck = () => {
   };
 
   useEffect(() => {
-
     getAttendanceCheck();
-
   }, []);
 
   const handleSubmit = (e) => {
@@ -75,7 +72,6 @@ const AttendanceCheck = () => {
     }
 
     createAttendance(formData);
-
   };
 
   const handleSwitchChange = () => {
@@ -118,8 +114,7 @@ const AttendanceCheck = () => {
                   <span>
                     <small>
                       {" "}
-                      - 선택을 하지 않을 시 현재 날짜를 기준으로
-                      저장합니다.
+                      - 선택을 하지 않을 시 현재 날짜를 기준으로 저장합니다.
                     </small>
                   </span>
                 }
@@ -190,7 +185,7 @@ const AttendanceCheck = () => {
                       {a.members
                         ? a.members.map((b, j) => (
                             // <Form.Check key={j} inline className="memberClass" type="checkbox" id={b.memberId} label={b.name} />
-                            <Checkbox key={j} value={b.memberId} >
+                            <Checkbox key={j} value={b.memberId}>
                               {b.name}
                             </Checkbox>
                           ))
@@ -202,15 +197,16 @@ const AttendanceCheck = () => {
             : null}
         </CheckboxGroup>
 
-        <Button
-          variant="contained"
-          type="submit"
-          className="btnSave"
-          disabled={memberIds.length === 0}
-          style={{ marginBottom: 10, fontFamily: 'GangwonEdu_OTFBoldA' }}
-        >
-          출석 추가
-        </Button>
+        <div className="btnWrapperAttendanceList">
+          <Button
+            variant="primary"
+            type="submit"
+            className="btnSaveAttendanceList"
+            disabled={memberIds.length === 0}
+          >
+            출석 추가
+          </Button>
+        </div>
       </Form>
     </div>
   );

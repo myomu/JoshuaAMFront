@@ -150,3 +150,57 @@
   text-align: center;
 }
 
+/* EditAttendanceCheck */
+.btnWrapperEditAttendance {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 30px;
+}
+
+.btnSaveEditAttendance {
+  width: 100%;
+  max-width: 120px;
+  margin-left: 2px !important;
+}
+
+.btnCancelEditAttendance {
+  width: 100%;
+  max-width: 120px;
+  margin-right: 2px !important;
+  background-color: #c5c5c5;
+  border: 1px solid #c5c5c5;
+}
+
+.btnCancelEditAttendance:hover {
+  background-color: #909090;
+  border: 1px solid #909090;
+}
+
+.btnCancelEditAttendance:active {
+  background-color: #7d7d7d !important;
+  border: 1px solid #7d7d7d !important;
+}
+
+.btnCancelEditAttendance:focus {
+  background-color: #7d7d7d !important;
+  border: 1px solid #7d7d7d !important;
+}
+
+/* AttendanceList */
+.btnWrapperAttendanceList {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 30px;
+}
+.btnSaveAttendanceList {
+  width: 100%;
+  max-width: 120px;
+}

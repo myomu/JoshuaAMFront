@@ -30,6 +30,7 @@ function Groups() {
       headerName: "수정",
       minWidth: 100,
       flex: 1,
+      sortable: false,
       renderCell: (params) => (
         <div className="tableItem">
           <Button

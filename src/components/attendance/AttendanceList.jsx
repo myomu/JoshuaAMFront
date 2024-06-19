@@ -83,6 +83,7 @@ const AttendanceList = () => {
       headerName: "수정",
       minWidth: 100,
       flex: 1,
+      sortable: false,
       renderCell: (params) => (
         <div className="tableItem">
           <Button
@@ -139,14 +140,9 @@ const AttendanceList = () => {
   };
 
   useEffect(() => {
-    // api
-    //   .get(`/attendances`)
-    //   .then((response) => {
-    //     setAttendances(response.data);
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => console.log(error));
+
     getAttendances();
+
   }, []);
 
   return (

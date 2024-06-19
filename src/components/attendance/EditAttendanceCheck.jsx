@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Form, Card, Col, Row } from "react-bootstrap";
+import { Form, Card, Col, Row, Button, ButtonGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
-import api from "../../apis/api";
-
 import * as attendanceApi from "../../apis/attendanceApi";
 import * as Swal from "../../apis/alert";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { Button } from "@mui/material";
 dayjs.extend(utc);
 
 const EditAttendanceCheck = () => {
@@ -70,40 +67,9 @@ const EditAttendanceCheck = () => {
   };
 
   useEffect(() => {
-    // api
-    //   .get(`/attendances/check`)
-    //   .then((response) => {
-    //     setMembers(response.data);
-    //     console.log("---");
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => console.log(error));
-
-    // api
-    // .get(`/attendances/edit/` + attendanceId)
-    // .then((response) => {
-    //   setMemberIds(response.data.checkedMemberIds.map((member) => member.memberId));
-    //   setAttendanceDate(response.data.attendanceDate);
-
-    //   const dateTime = new Date(response.data.attendanceDate);
-    //   setSelectYear(dateTime.getFullYear());
-    //   setSelectMonth(dateTime.getMonth() + 1);
-    //   setSelectDay(dateTime.getDate());
-    //   setLoading(false);
-    // })
-    // .catch((error) => console.log(error));
-
     getAttendanceCheck();
     getEditAttendanceCheck();
   }, []);
-
-  // useEffect(() => {
-  //   //   const fetchData = async () => {
-  //   //     try {
-  //   //     } catch (error)
-  //   //   }
-  //   // fetchData();
-  // }, [attendanceId]);
 
   const handleSubmit = (event) => {
     event.preventDefault(); //페이지 리로드 방지.
@@ -132,24 +98,8 @@ const EditAttendanceCheck = () => {
         attendanceDate: attendanceDate,
       };
     }
-    
-    editAttendance(formData);
 
-    //   api
-    //     .post(`/attendances/edit/` + attendanceId, formData, {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       alert("출석 수정에 성공하였습니다.");
-    //       window.location.replace("/attendances");
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //       alert("출석 수정에 실패하였습니다.");
-    //     });
+    editAttendance(formData);
   };
 
   const handleSwitchChange = () => {
@@ -249,10 +199,7 @@ const EditAttendanceCheck = () => {
             </Card.Body>
           </Card>
 
-          <CheckboxGroup
-            values={memberIds}
-            onChange={setMemberIds}
-          >
+          <CheckboxGroup values={memberIds} onChange={setMemberIds}>
             {members
               ? members.map((a, i) => (
                   <div key={i}>
@@ -274,27 +221,29 @@ const EditAttendanceCheck = () => {
                 ))
               : null}
           </CheckboxGroup>
-          
-          <div style={{marginBottom: "20px"}}>
-          <Button
-            variant="contained"
-            type="submit"
-            className="btnSave"
-            disabled={memberIds.length === 0}
-            style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
-          >
-            저장
-          </Button>
-          <Button
-            variant="contained"
-            style={{ marginLeft: "5px", fontFamily: 'GangwonEdu_OTFBoldA' }}
-            onClick={() => {
-              navigate("/attendances");
-            }}
-          >
-            취소
-          </Button>
-          </div>
+
+          {/* <div className="btnWrapperEditAttendance"> */}
+          <ButtonGroup className="btnWrapperEditAttendance">
+            <Button
+              variant="secondary"
+              className="btnCancelEditAttendance"
+              onClick={() => {
+                navigate("/attendances");
+              }}
+            >
+              취소
+            </Button>
+            <Button
+              variant="primary"
+              type="submit"
+              className="btnSaveEditAttendance"
+              disabled={memberIds.length === 0}
+            >
+              저장
+            </Button>
+          </ButtonGroup>
+
+          {/* </div> */}
         </Form>
       </div>
     );
