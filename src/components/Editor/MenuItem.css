@@ -1,0 +1,52 @@
+/* .menu-item {
+    background-color: transparent;
+    border: none;
+    border-radius: 0.4rem;
+    color: #6a6a6a;
+    cursor: pointer;
+    height: 1.75rem;
+    margin-right: 0.25rem;
+    padding: 0.25rem;
+    width: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.menu-item svg {
+    fill: currentColor;
+    height: 100%;
+    width: 100%;
+}
+.menu-item:hover, .menu-item.is-active {
+    background-color: #323232;
+} */
+
+
+.menu-item {
+    background-color: transparent;
+    border: none;
+    border-radius: 0.5rem;
+    color: #6a6a6a;
+    cursor: pointer;
+    height: 2rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .menu-item svg {
+    fill: currentColor;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  
+  .menu-item:hover,
+  .menu-item.is-active {
+    background-color: #007bff;
+    color: #fff;
+    transform: translateY(-2px);
+  }

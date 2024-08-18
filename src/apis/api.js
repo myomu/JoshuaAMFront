@@ -17,7 +17,8 @@ api.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
 
-    config.headers["Content-Type"] = "application/json";
+    // config.headers["Content-Type"] = "application/json"; <- 요것 때문에 이미자 파일을 서버에서
+    // multipartfile 로 못받았던 거였음.
 
     return config;
   },

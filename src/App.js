@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import Members from "./components/member/Members.jsx";
 import Attendances from "./components/attendance/Attendances.jsx";
 import Groups from "./components/group/Groups.jsx";
+import Minutes from "./components/minutes/Minutes.jsx";
 
 // const Attendances = lazy(() =>
 //   import("./components/attendance/Attendances.jsx")
@@ -54,6 +55,7 @@ function App() {
                   <Route path="/members/*" element={<Members />} />
                   <Route path="/groups/*" element={<Groups />} />
                   <Route path="/user/profile" element={<UserProfile />} />
+                  <Route path="/minutes/*" element={<Minutes />} />
                 </Route>
               </Routes>
             {/* </Suspense> */}

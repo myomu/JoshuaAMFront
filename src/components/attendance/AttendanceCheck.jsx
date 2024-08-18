@@ -102,7 +102,7 @@ const AttendanceCheck = () => {
   return (
     <div>
       <Header />
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="attendance__check__form">
         <Card>
           <Card.Body>
             <p>날짜 선택</p>

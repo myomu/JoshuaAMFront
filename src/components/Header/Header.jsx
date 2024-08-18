@@ -23,7 +23,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { AccountBoxRounded, AssignmentIndRounded, AssignmentRounded, GroupsRounded, HomeRounded, InventoryRounded, Logout, LogoutRounded, PeopleAltRounded } from "@mui/icons-material";
+import { AccountBoxRounded, AssignmentIndRounded, AssignmentRounded, Folder, GroupsRounded, HomeRounded, Inventory, InventoryRounded, Logout, LogoutRounded, PeopleAltRounded } from "@mui/icons-material";
 import { GridMenuIcon } from "@mui/x-data-grid";
 
 const Header = () => {
@@ -207,6 +207,19 @@ const Header = () => {
               }}
             />
           </ListItem>
+          <ListItem>
+            <Folder style={{marginRight: 10}} />
+            <ListItemText
+              primary={
+              <Typography sx={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
+                회의록
+              </Typography>
+              }
+              onClick={() => {
+                navigate("/minutes");
+              }}
+            />
+          </ListItem>
         </List>
         <Divider />
         <List>
@@ -320,6 +333,15 @@ const Header = () => {
                   }}
                 >
                   그룹
+                </Button>
+                <Button
+                  className="menuItem"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/minutes");
+                  }}
+                >
+                  회의록
                 </Button>
               </Box>
               <Box>
