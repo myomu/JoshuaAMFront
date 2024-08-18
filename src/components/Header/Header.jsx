@@ -248,7 +248,7 @@ const Header = () => {
     <div>
       <AppBar
         position="fixed"
-        style={{ boxShadow: "0px 0px 0px 1px rgba(0, 0, 0, 0.2)" }}
+        style={{ boxShadow: "0px 0px 0px 1px rgba(0, 0, 0, 0.2)", zIndex: 1000 }}
       >
         <Toolbar className="menu">
           {isMobile && (
