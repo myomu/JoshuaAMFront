@@ -78,6 +78,7 @@ const LoginConfigContextProvider = ({ children }) => {
       const status = response.status;
       const headers = response.headers;
       const authorization = headers.authorization;
+      console.log(headers);
       const accessToken = authorization.replace("Bearer ", ""); // 💍 JWT
       // console.log(accessToken);
       // console.log(`data : ${data}`);

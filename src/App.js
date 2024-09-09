@@ -12,16 +12,15 @@ import { setHandleTokenExpired } from "./apis/api.js";
 import { useDispatch } from "react-redux";
 import { resetIsLogin, setRole, setUserInfo } from "./config/store.js";
 import Cookies from "js-cookie";
-import Members from "./components/member/Members.jsx";
-import Attendances from "./components/attendance/Attendances.jsx";
-import Groups from "./components/group/Groups.jsx";
-import Minutes from "./components/minutes/Minutes.jsx";
+//import Members from "./components/member/Members.jsx";
+//import Attendances from "./components/attendance/Attendances.jsx";
+//import Groups from "./components/group/Groups.jsx";
+//import Minutes from "./components/minutes/Minutes.jsx";
 
-// const Attendances = lazy(() =>
-//   import("./components/attendance/Attendances.jsx")
-// );
-// const Members = lazy(() => import("./components/member/Members.jsx"));
-// const Groups = lazy(() => import("./components/group/Groups.jsx"));
+const Members = lazy(() => import("./components/member/Members.jsx"));
+const Attendances = lazy(() => import("./components/attendance/Attendances.jsx"));
+const Groups = lazy(() => import("./components/group/Groups.jsx"));
+const Minutes = lazy(() => import("./components/minutes/Minutes.jsx"));
 
 function App() {
 
@@ -30,19 +29,21 @@ function App() {
   
   // JWT Token 만료 시 로그인 화면으로 이동
   useEffect(() => {
-    setHandleTokenExpired(() => {
+    const handleExpired = () => {
       Cookies.remove("accessToken");
       dispatch(resetIsLogin(false));
       dispatch(setUserInfo(null));
       dispatch(setRole(null));
       navigate("/login");
-    });
-  }, [navigate]);
+    };
+
+    setHandleTokenExpired(handleExpired);
+  }, [navigate, dispatch]);
 
   return (
       <LoginConfigContextProvider>
           <div className="container">
-            {/* <Suspense fallback={ <Loading /> }> */}
+            <Suspense fallback={ <div>Loading...</div> }>
               <Routes>
                 {/* 권한이 필요없는 Route. */}
                 <Route path="/login" element={<Login />} />
@@ -58,7 +59,7 @@ function App() {
                   <Route path="/minutes/*" element={<Minutes />} />
                 </Route>
               </Routes>
-            {/* </Suspense> */}
+            </Suspense>
           </div>
       </LoginConfigContextProvider>
   );
