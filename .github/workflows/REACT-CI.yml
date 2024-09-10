@@ -1,0 +1,32 @@
+name: React CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build and Push Docker Image
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t ${{ secrets.DOCKER_REPO }}:web-v1.0.0 .
+        docker push ${{ secrets.DOCKER_REPO }}:web-v1.0.0
+
+    - name: SSH to EC2 and Deploy
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ubuntu
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd /path/to/docker-compose
+          docker-compose down
+          docker-compose pull
+          docker-compose up -d
