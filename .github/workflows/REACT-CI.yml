@@ -26,7 +26,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          cd /path/to/docker-compose
+          cd /home/ubuntu/project/
           docker-compose down
           docker-compose pull
           docker-compose up -d
