@@ -97,15 +97,6 @@ api.interceptors.response.use(
       return Promise.reject(error); // 루프 방지
     }
 
-    // if (error.response?.status === 401) {
-    //   if (error.response.data === "JWT Token is expired") {
-    //     handleTokenExpired();
-    //   }
-    //   console.error("Unauthorized access: ", error.response.data);
-    // } else {
-    //   console.error("API response error: ", error.response);
-    // }
-
     return Promise.reject(error);
   }
 );

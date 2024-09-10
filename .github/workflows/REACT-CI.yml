@@ -15,9 +15,10 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
+        IMAGE_TAG=web-v1.0.0
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker build -t ${{ secrets.DOCKER_REPO }}:web-v1.0.0 .
-        docker push ${{ secrets.DOCKER_REPO }}:web-v1.0.0
+        docker build -t ${{ secrets.DOCKER_REPO }}:${IMAGE_TAG} .
+        docker push ${{ secrets.DOCKER_REPO }}:${IMAGE_TAG}
 
     - name: SSH to EC2 and Deploy
       uses: appleboy/ssh-action@v0.1.5
