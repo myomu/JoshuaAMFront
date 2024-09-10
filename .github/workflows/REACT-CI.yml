@@ -27,6 +27,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           cd /home/ubuntu/project/
           docker-compose down
           docker-compose pull
