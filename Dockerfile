@@ -13,7 +13,7 @@ RUN npm run build
 
 # Nginx 이미지를 사용하여 빌드된 정적 파일 제공
 FROM nginx:latest
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
 # Nginx 기본 설정 유지, 80 포트 사용
 EXPOSE 3000
