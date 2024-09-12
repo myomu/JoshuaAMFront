@@ -1,5 +1,5 @@
 # Node.js 18 이미지를 사용하여 빌드
-FROM node:18 AS build
+FROM node:alpine as builder
 
 WORKDIR /app
 
@@ -16,5 +16,5 @@ FROM nginx:latest
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Nginx 기본 설정 유지, 80 포트 사용
-EXPOSE 80
+EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]

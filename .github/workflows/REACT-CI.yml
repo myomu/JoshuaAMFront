@@ -12,10 +12,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
-    - name: Create .env file
-      run: |
-        echo REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} >> frontend/.env
 
     - name: Build and Push Docker Image
       run: |
