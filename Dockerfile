@@ -1,4 +1,3 @@
-# Node.js 18 이미지를 사용하여 빌드
 FROM node:alpine as builder
 
 WORKDIR /app
@@ -11,10 +10,9 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Nginx 이미지를 사용하여 빌드된 정적 파일 제공
-FROM nginx:latest
-COPY --from=builder /app/build /usr/share/nginx/html
+# 빌드된 정적 파일만을 제공
+FROM alpine:latest
+WORKDIR /app
+COPY --from=builder /app/build /app/build
 
-# Nginx 기본 설정 유지, 80 포트 사용
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
