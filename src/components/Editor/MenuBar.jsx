@@ -112,12 +112,12 @@ const MenuBar = ({ editor }) => {
     //     return editor.isActive('paragraph') && !editor.isActive('heading') && !editor.isActive('codeBlock');
     //   },
     // },
-    {
-      icon: "list-unordered",
-      title: "불릿 목록",
-      action: () => editor.chain().focus().toggleBulletList().run(),
-      isActive: () => editor.isActive("bulletList"),
-    },
+    // {
+    //   icon: "list-unordered",
+    //   title: "불릿 목록",
+    //   action: () => editor.chain().focus().toggleBulletList().run(),
+    //   isActive: () => editor.isActive("bulletList"),
+    // },
     {
       icon: "list-ordered",
       title: "번호 목록",

@@ -126,6 +126,15 @@ function Groups() {
           "& .MuiDataGrid-columnHeader:focus-within": {
             outline: "none", // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
           },
+          "& .MuiDataGrid-columnHeaders": {
+            fontSize: "16px", // 헤더 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 헤더 폰트
+            fontWeight: "bold", // 헤더 폰트 굵기
+          },
+          "& .MuiDataGrid-cell": {
+            fontSize: "14px", // 데이터 셀 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 데이터 셀 폰트
+          },
         }}
       />
       <br></br>

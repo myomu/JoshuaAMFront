@@ -14,7 +14,6 @@
 
 body {
   font-family: 'Noto Sans', sans-serif;
-  font-size: 20px;
 }
 
 ul { list-style-type: none; }
@@ -75,7 +74,7 @@ button { cursor: pointer; }
 }
 
 .tiptap mark {
-  background-color: #6e6d5c;
+  background-color: #fff3cd;
 }
 
 .tiptap img {
@@ -128,6 +127,90 @@ button { cursor: pointer; }
   background-color: yellow; /* 기본 하이라이트 색상 */
   padding: 0 0.2rem; /* 강조된 텍스트 주위에 약간의 패딩 */
   border-radius: 0.2rem; /* 둥근 모서리 추가 */
+}
+
+/* 전역 관리 (에디터로 저장 후 Minutes 에서 확인 할 때의 CSS 를 일치시켜주기 위함) */
+.minutes__form ul, .minutes__form ol {
+  padding: 0 1rem;
+}
+
+.minutes__form h1, .minutes__form h2, .minutes__form h3, .minutes__form h4, .minutes__form h5, .minutes__form h6 {
+  line-height: 1.1;
+}
+
+.minutes__form code {
+  background-color: rgba(97, 97, 97, 0.15); /* 배경색을 조금 더 어둡게 */
+  color: #282828; /* 글자색 */
+  padding: 0.3rem 0.4rem; /* 코드 블록의 내부 여백 추가 */
+  border-radius: 4px; /* 둥근 모서리 추가 */
+  font-size: 0.9rem; /* 약간 작은 글자 크기 */
+  font-family: "JetBrainsMono", monospace; /* 폰트 설정 */
+}
+
+.minutes__form pre {
+  background: #2e2e2e; /* 어두운 배경색 */
+  border-radius: 0.5rem; /* 둥근 모서리 */
+  color: #f8f8f2; /* 밝은 글자색 */
+  font-family: "JetBrainsMono", monospace; /* 폰트 설정 */
+  padding: 1rem 1.5rem; /* 내부 여백 추가 */
+  overflow-x: auto; /* 긴 코드가 넘칠 때 스크롤 가능하게 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+.minutes__form pre code {
+  background: none;
+  color: inherit;
+  font-size: 0.85rem; /* 약간 작은 글자 크기 */
+  padding: 0;
+  display: block;
+  white-space: pre-wrap; /* 코드 블록 내에서 줄바꿈 유지 */
+  line-height: 1.5; /* 줄 간격 조절 */
+}
+
+.minutes__form mark {
+  background-color: #fff3cd;
+  padding: 0.25rem; /* 강조된 텍스트 주위에 약간의 패딩 */
+  border-radius: 0.25rem; /* 둥근 모서리 추가 */
+}
+
+.minutes__form img {
+  height: auto;
+  max-width: 100%;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+  /* transition: transform 0.3s ease; */
+  /* outline: none; */
+}
+
+.minutes__form img:focus {
+  outline: 3px solid #007bff;
+  /* transform: scale(1.05); */
+}
+
+.minutes__form blockquote {
+  border-left: 2px solid rgba(13, 13, 13, 0.1);
+  padding-left: 1rem;
+}
+
+.minutes__form ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+}
+
+.minutes__form ul[data-type="taskList"] li {
+  align-items: center;
+  display: flex;
+}
+
+.minutes__form ul[data-type="taskList"] li > label {
+  flex: 0 0 auto;
+  margin-right: 0.5rem;
+  user-select: none;
+}
+
+.minutes__form ul[data-type="taskList"] li > div {
+  flex: 1 1 auto;
 }
 
 .editor {

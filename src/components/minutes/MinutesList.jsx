@@ -26,7 +26,7 @@ const MinutesList = () => {
       headerName: "번호",
       minWidth: 80,
       flex: 0.5,
-      renderCell: (params) => <div className="tableItem">{params.value}</div>,
+      renderCell: (params) => <div className="tableItem">{params.id}</div>,
     },
     {
       field: "title",
@@ -69,21 +69,19 @@ const MinutesList = () => {
       .map((id) => rows.find((row) => row.id === id))
       .filter(Boolean);
     const selectMinutesIds = selectedData.map((row) => row.meetingMinutesId);
-    console.log("selectMemberIds: ", selectMinutesIds);
     setMinutesIds(selectMinutesIds);
   };
 
-  // 회의록 목록 요청
+  // 게시글 목록 요청
   const getAllMinutes = async () => {
     try {
       const response = await minutesApi.getAllOfMinutes();
       const minutes = response.data;
-      console.log(minutes);
       setRows(
         minutes &&
           minutes.map((data, idx) => {
             return {
-              id: idx,
+              id: minutes.length - idx,
               ...data,
             }
           })
@@ -93,16 +91,16 @@ const MinutesList = () => {
     }
   }
 
-  // 회의록 삭제 요청
+  // 게시글 삭제 요청
   const deleteMinutes = async (minutesIds) => {
     try {
       await minutesApi.deleteMinutes({ meetingMinutesIds : minutesIds });
-      Swal.alert("회의록 삭제 성공", "", "success", () => {
+      Swal.alert("게시글 삭제 성공", "", "success", () => {
         window.location.replace("/minutes");
       });
     } catch (error) {
-      console.error(`회의록 삭제에 실패하였습니다: ${error}`);
-      alert("회의록 삭제 실패", "", "error");
+      console.error(`게시글 삭제에 실패하였습니다: ${error}`);
+      alert("게시글 삭제 실패", "", "error");
     }
   };
 
@@ -143,6 +141,15 @@ const MinutesList = () => {
           "& .MuiDataGrid-columnHeader:focus-within": {
             outline: "none", // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
           },
+          "& .MuiDataGrid-columnHeaders": {
+            fontSize: "16px", // 헤더 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 헤더 폰트
+            fontWeight: "bold", // 헤더 폰트 굵기
+          },
+          "& .MuiDataGrid-cell": {
+            fontSize: "14px", // 데이터 셀 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 데이터 셀 폰트
+          },
         }}
       />
       <br></br>
@@ -164,7 +171,7 @@ const CustomToolbar = ({ minutesIds, deleteMinutes }) => {
       </Button>
       <Button
         onClick={() => {
-          Swal.confirm("회의록 삭제", "회의록을 삭제하시겠습니까?", "warning", (result) => {
+          Swal.confirm("게시글 삭제", "게시글을 삭제하시겠습니까?", "warning", (result) => {
             if (result.isConfirmed) {
               deleteMinutes(minutesIds);
             }

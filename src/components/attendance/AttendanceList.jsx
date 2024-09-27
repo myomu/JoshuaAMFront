@@ -90,7 +90,7 @@ const AttendanceList = () => {
             color="primary"
             variant="text"
             onClick={() => navigate(`edit/${params.row.attendanceId}`)}
-            style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
+            style={{ fontFamily: "GangwonEdu_OTFBoldA" }}
           >
             수정
           </Button>
@@ -140,9 +140,7 @@ const AttendanceList = () => {
   };
 
   useEffect(() => {
-
     getAttendances();
-
   }, []);
 
   return (
@@ -177,11 +175,20 @@ const AttendanceList = () => {
         pageSizeOptions={[10, 25, 50]}
         autoHeight
         sx={{
-          "& .MuiDataGrid-cellCheckbox:focus-within": {outline: "none"},
+          "& .MuiDataGrid-cellCheckbox:focus-within": { outline: "none" },
           "& .MuiDataGrid-cell:focus": { outline: "none" },
           "& .MuiDataGrid-columnHeader:focus": { outline: "none" },
           "& .MuiDataGrid-columnHeader:focus-within": {
             outline: "none", // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            fontSize: "16px", // 헤더 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 헤더 폰트
+            fontWeight: "bold", // 헤더 폰트 굵기
+          },
+          "& .MuiDataGrid-cell": {
+            fontSize: "14px", // 데이터 셀 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 데이터 셀 폰트
           },
         }}
         pagination

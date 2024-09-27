@@ -22,7 +22,7 @@ const DetailMinutes = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [images, setImages] = useState([]);
 
-  // 회의록 요청
+  // 게시글 요청
   const getOneMinutes = async () => {
     try {
       const response = await minutesApi.getOneOfMinutes(minutesId);
@@ -86,7 +86,7 @@ const DetailMinutes = () => {
           {content && (
             <div
               style={{
-                width: "60vw",
+                width: "100%",
                 whiteSpace: "normal",
               }}
               dangerouslySetInnerHTML={{
@@ -102,7 +102,7 @@ const DetailMinutes = () => {
           )}
         </Row>
       </div>
-      <Row className="content__footer mt-5">
+      <Row className="content__footer mt-5" style={{ marginLeft: "1px", fontFamily: "GangwonEdu_OTFBoldA" }}>
         <Button
           style={{ width: "fit-content" }}
           onClick={() => {

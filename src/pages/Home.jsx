@@ -9,9 +9,6 @@ import { Box, Typography } from "@mui/material";
 dayjs.extend(utc);
 
 const Home = () => {
-  // const response = api.get("/home/acount");
-  // console.log(response);
-  // console.log(response.data);
 
   const [attendanceCount, setAttendanceCount] = useState([]);
   const [absentee, setAbsentee] = useState([]);
@@ -20,7 +17,6 @@ const Home = () => {
     try {
       const response = await api.get("/home/attendance");
       const data = response.data;
-      console.log(data);
       setAttendanceCount(data);
     } catch (error) {
       console.error(`${error}`);
@@ -31,7 +27,6 @@ const Home = () => {
     try {
       const response = await api.get("/home/absentee");
       const data = response.data;
-      console.log(data);
       setAbsentee(data);
     } catch (error) {
       console.error(`${error}`);

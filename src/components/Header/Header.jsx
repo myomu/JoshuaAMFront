@@ -42,19 +42,12 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
-  // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  //
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  //
 
-  const handleProfileMenuOpen = (event) => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -64,7 +57,6 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    // setMobileMoreAnchorEl(null);
     setDrawerOpen(false);
   };
 
@@ -73,7 +65,6 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    console.log("Logged out");
     handleMenuClose();
     logout();
   };
@@ -212,7 +203,7 @@ const Header = () => {
             <ListItemText
               primary={
               <Typography sx={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
-                회의록
+                게시판
               </Typography>
               }
               onClick={() => {
@@ -341,7 +332,7 @@ const Header = () => {
                     navigate("/minutes");
                   }}
                 >
-                  회의록
+                  게시판
                 </Button>
               </Box>
               <Box>

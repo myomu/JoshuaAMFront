@@ -105,7 +105,7 @@ const AttendanceCheck = () => {
       <Form onSubmit={handleSubmit} className="attendance__check__form">
         <Card>
           <Card.Body>
-            <p>날짜 선택</p>
+            <p style={{ marginBottom: "5px" }}>날짜 선택</p>
             <Form.Group>
               <Form.Check
                 type="switch"
@@ -179,7 +179,7 @@ const AttendanceCheck = () => {
                 <div key={i}>
                   <Card className="mb-3">
                     <Card.Header>
-                      <p>{a.groupName}</p>
+                      <p style={{ marginBottom: "0" }}>{a.groupName}</p>
                     </Card.Header>
                     <Card.Body>
                       {a.members

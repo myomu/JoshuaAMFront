@@ -13,8 +13,6 @@ const CreateMinutes = () => {
   let navigate = useNavigate();
 
   const [title, setTitle] = useState("");
-  // const [content, setContent] = useState("");
-
   const [isValid, setIsValid] = useState({
     title: true,
     content: true,
@@ -28,10 +26,10 @@ const CreateMinutes = () => {
     try {
       await minutesApi.createMinutes(form);
       window.location.replace("/minutes");
-      console.log("회의록 추가 성공");
+      console.log("게시글 추가 성공");
     } catch (error) {
       console.error(`${error}`);
-      console.log("회의록 추가 실패");
+      console.log("게시글 추가 실패");
     }
   };
 
@@ -48,7 +46,6 @@ const CreateMinutes = () => {
     createMinutes({ title, content, createdAt: date, userId });
     console.log({ title, content, createdAt: date, userId });
   };
-
 
   const editor = useEditor({
     extensions: [StarterKit, ResizableImage, Highlight.configure({ multicolor: true })],
@@ -71,7 +68,7 @@ const CreateMinutes = () => {
         style={{ width: "80%" }}
       >
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="title" style={{ padding: "0" }}>
+          <Form.Group as={Col} controlId="title" style={{ padding: "0", fontFamily: "GangwonEdu_OTFBoldA" }}>
             {/* <Form.Label>이름</Form.Label> */}
             <Form.Control
               required
@@ -95,7 +92,7 @@ const CreateMinutes = () => {
         </Row>
 
         <Row className="mb-3">
-          <ButtonGroup style={{ padding: "0" }}>
+          <ButtonGroup style={{ padding: "0", fontFamily: "GangwonEdu_OTFBoldA" }}>
             <Button
               onClick={() => {
                 navigate("/minutes");

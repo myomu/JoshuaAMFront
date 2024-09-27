@@ -4,7 +4,7 @@ import { LoginConfigContext } from "../../config/LoginConfigContextProvider";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const { login } = useContext(LoginConfigContext);
+  const { login, errorMessage } = useContext(LoginConfigContext);
   // const [rememberUserId, setRememberUserId] = useState();
 
   const navigate = useNavigate();
@@ -59,6 +59,11 @@ const LoginForm = () => {
                 비밀번호
               </label>
             </div>
+
+            <div className="error-message mt-3">
+              {errorMessage && <p style={{ color: "red" }}> {errorMessage} </p>}
+            </div>
+
             {/* <hr className="my-4" /> */}
             <div className="d-grid">
               <button
@@ -69,7 +74,7 @@ const LoginForm = () => {
               </button>
             </div>
 
-            <div className="error-message mt-3"></div>
+            
           </form>
           <hr className="mt-3" />
           <div className="btn__login__join text-center" onClick={toJoin}>

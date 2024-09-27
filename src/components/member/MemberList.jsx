@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import { Button } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
-import {
-  DataGrid,
-  GridToolbarContainer,
-} from "@mui/x-data-grid";
+import { DataGrid, GridToolbarContainer } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import * as memberApi from "../../apis/memberApi";
 import * as Swal from "../../apis/alert";
@@ -102,7 +99,7 @@ const MemberList = () => {
           <div
             style={{
               position: "absolute",
-              top: '15%',
+              top: "15%",
               left: 0,
               width: "100%",
               height: "100%",
@@ -131,7 +128,7 @@ const MemberList = () => {
             color="primary"
             variant="text"
             onClick={() => navigate(`edit/${params.row.memberId}`)}
-            style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
+            style={{ fontFamily: "GangwonEdu_OTFBoldA" }}
           >
             수정
           </Button>
@@ -220,7 +217,7 @@ const MemberList = () => {
           className="btn__datepicker__cancel mb-2"
           variant="contained"
           onClick={cancelDatePicker}
-          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
+          style={{ fontFamily: "GangwonEdu_OTFBoldA" }}
         >
           취소
         </Button>
@@ -248,11 +245,20 @@ const MemberList = () => {
         pageSizeOptions={[10, 25, 50]}
         autoHeight
         sx={{
-          "& .MuiDataGrid-cellCheckbox:focus-within": {outline: "none"},
+          "& .MuiDataGrid-cellCheckbox:focus-within": { outline: "none" },
           "& .MuiDataGrid-cell:focus": { outline: "none" },
           "& .MuiDataGrid-columnHeader:focus": { outline: "none" },
-          '& .MuiDataGrid-columnHeader:focus-within': {
-            outline: 'none', // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
+          "& .MuiDataGrid-columnHeader:focus-within": {
+            outline: "none", // 헤더 셀 내부 포커스 아웃라인을 제거합니다.
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            fontSize: "16px", // 헤더 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 헤더 폰트
+            fontWeight: "bold", // 헤더 폰트 굵기
+          },
+          "& .MuiDataGrid-cell": {
+            fontSize: "14px", // 데이터 셀 폰트 크기
+            fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 데이터 셀 폰트
           },
         }}
       />

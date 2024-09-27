@@ -29,10 +29,10 @@ const EditMinutes = () => {
     try {
       await minutesApi.editMinutes(minutesId, form);
       window.location.replace(`/minutes/detail/${minutesId}`);
-      console.log("회의록 수정 성공");
+      console.log("게시글 수정 성공");
     } catch (error) {
       console.error(`${error}`);
-      console.log("회의록 수정 실패");
+      console.log("게시글 수정 실패");
     }
   };
 
@@ -65,7 +65,7 @@ const EditMinutes = () => {
     }
   }, [editor, content]);
 
-  // 회의록 요청
+  // 게시글 요청
   const getOneMinutes = async () => {
     try {
       const response = await minutesApi.getOneOfMinutes(minutesId);
@@ -93,7 +93,7 @@ const EditMinutes = () => {
         style={{ width: "80%" }}
       >
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="title" style={{ padding: "0" }}>
+          <Form.Group as={Col} controlId="title" style={{ padding: "0", fontFamily: "GangwonEdu_OTFBoldA" }}>
             {/* <Form.Label>이름</Form.Label> */}
             <Form.Control
               required
@@ -117,7 +117,7 @@ const EditMinutes = () => {
         </Row>
 
         <Row className="mb-3">
-          <ButtonGroup style={{ padding: "0" }}>
+          <ButtonGroup style={{ padding: "0", fontFamily: "GangwonEdu_OTFBoldA" }}>
             <Button
               onClick={() => {
                 navigate(`/minutes/detail/${minutesId}`);

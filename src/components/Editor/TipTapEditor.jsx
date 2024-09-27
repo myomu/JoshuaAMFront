@@ -5,14 +5,14 @@ import MenuBar from "./MenuBar";
 const TipTapEditor = ({ editor }) => {
 
 
-  const handleSave = async () => {
-    const content = editor.getHTML();
-    try {
-      console.log(content);
-    } catch (error) {
-      console.error(`${error}`);
-    }
-  };
+  // const handleSave = async () => {
+  //   const content = editor.getHTML();
+  //   try {
+  //     console.log(content);
+  //   } catch (error) {
+  //     console.error(`${error}`);
+  //   }
+  // };
 
   // useEffect(() => {
   //   if (editor) {
@@ -22,9 +22,11 @@ const TipTapEditor = ({ editor }) => {
   //   }
   // }, [editor]);
 
+  if (!editor) return <div>Loading ... </div>;
+
   return (
     <div className="editor">
-      <MenuBar editor={editor} onSave={handleSave} />
+      <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>
   );
