@@ -56,7 +56,7 @@ const UserProfile = () => {
       console.error(`${error}`);
       console.error(`계정 정보 수정 중 에러가 발생했습니다.`);
       if (error.response.status === 400) {
-        Swal.alert("계정 정보 수정 실패", error.response.data, "error");
+        alert("계정 정보 수정 실패");
       }
       return;
     }
@@ -80,7 +80,7 @@ const UserProfile = () => {
       console.error(`${error}`);
       console.error(`계정 탈퇴에 실패했습니다.`);
       if (error.response.status === 400) {
-        Swal.alert("계정 탈퇴 실패", error.response.data, "error");
+        alert("계정 탈퇴 실패");
       }
       return;
     }
@@ -105,8 +105,6 @@ const UserProfile = () => {
     const userPw = form.password.value;
     const userName = form.name.value;
     const email = form.email.value;
-
-    console.log(id, userPw, userName, email);
 
     updateUser( { id, userLoginId, userPw, userName, email } );
   };

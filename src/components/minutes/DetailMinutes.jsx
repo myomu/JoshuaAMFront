@@ -4,7 +4,6 @@ import * as minutesApi from "../../apis/minutesApi";
 import DOMPurify from "dompurify";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import dayjs from "dayjs";
-import ReactDOM from "react-dom";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const DetailMinutes = () => {
@@ -37,7 +36,6 @@ const DetailMinutes = () => {
         dayjs.utc(minutes.updatedAt).local().format("YYYY-MM-DD HH:mm")
       );
       setContent(minutes.content);
-      console.log(minutes);
 
       // 이미지 추출
       const parser = new DOMParser();

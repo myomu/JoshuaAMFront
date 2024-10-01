@@ -23,12 +23,11 @@ const CreateGroup = () => {
   const createGroup = async (form) => {
     try {
       await groupApi.createGroup(form);
-      Swal.alert("그룹 추가 성공", "", "success", () => {
-        window.location.replace("/groups");
-      });
+      alert("그룹 추가 성공");
+      window.location.replace("/groups");
     } catch (error) {
       console.error(`${error}`);
-      Swal.alert("그룹 추가 실패", "", "error");
+      alert("그룹 추가 실패");
     }
   };
 

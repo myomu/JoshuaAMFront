@@ -1,4 +1,4 @@
-import { Box, Button, LinearProgress } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as attendanceApi from "../../apis/attendanceApi";
@@ -20,7 +20,6 @@ const AttendanceList = () => {
       .map((id) => rows.find((row) => row.id === id))
       .filter(Boolean);
     const selectAttendanceIds = selectedData.map((row) => row.attendanceId);
-    console.log("selectAttendanceIds: ", selectAttendanceIds);
     setAttendanceIds(selectAttendanceIds);
   };
 
@@ -106,7 +105,6 @@ const AttendanceList = () => {
     try {
       const response = await attendanceApi.getAttendances();
       const attendances = response.data;
-      // console.log(attendances);
       setRows(
         attendances &&
           attendances.map((data, idx) => {
@@ -128,14 +126,12 @@ const AttendanceList = () => {
       await attendanceApi.deleteAttendance({ attendanceIds });
       // alert("회원 삭제에 성공하였습니다.");
       // window.location.replace("/members");
-      Swal.alert("출석 삭제 성공", "", "success", () => {
-        window.location.replace("/attendances");
-      });
+      alert("출석 삭제 성공");
+      window.location.replace("/attendances");
     } catch (error) {
       console.error(`출석 삭제에 실패하였습니다.`);
       console.error(`${error}`);
-      // alert("회원 삭제에 실패하였습니다.");
-      Swal.alert("출석 삭제 실패", "", "error");
+      alert("출석 삭제 실패");
     }
   };
 

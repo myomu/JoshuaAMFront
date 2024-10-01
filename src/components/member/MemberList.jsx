@@ -31,7 +31,6 @@ const MemberList = () => {
       .map((id) => rows.find((row) => row.id === id))
       .filter(Boolean);
     const selectMemberIds = selectedData.map((row) => row.memberId);
-    console.log("selectMemberIds: ", selectMemberIds);
     setMemberIds(selectMemberIds);
   };
 
@@ -158,7 +157,6 @@ const MemberList = () => {
             };
           })
       );
-      // console.log(members);
     } catch (error) {
       console.error(`회원 목록을 불러오는데 실패했습니다.`);
       console.error(`${error}`);
@@ -169,13 +167,12 @@ const MemberList = () => {
   const deleteMember = async (memberIds) => {
     try {
       await memberApi.deleteMember({ memberIds });
-      Swal.alert("회원 삭제 성공", "", "success", () => {
-        window.location.replace("/members");
-      });
+      alert("회원 삭제 성공");
+      window.location.replace("/members");
     } catch (error) {
       console.error(`회원 삭제에 실패하였습니다.`);
       console.error(`${error}`);
-      Swal.alert("회원 삭제 실패", "", "error");
+      alert("회원 삭제 실패");
     }
   };
 

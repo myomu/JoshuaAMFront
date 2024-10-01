@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup, Col, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import * as minutesApi from "../../apis/minutesApi";
-import { useSelector } from "react-redux";
 import Highlight from "@tiptap/extension-highlight";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -29,10 +28,9 @@ const EditMinutes = () => {
     try {
       await minutesApi.editMinutes(minutesId, form);
       window.location.replace(`/minutes/detail/${minutesId}`);
-      console.log("게시글 수정 성공");
     } catch (error) {
       console.error(`${error}`);
-      console.log("게시글 수정 실패");
+      alert("게시글 수정 실패");
     }
   };
 
@@ -43,7 +41,6 @@ const EditMinutes = () => {
     const date = new Date();
     const content = editor.getHTML();
     editMinutes({ title, content, updatedAt: date });
-    console.log({ title, content, updatedAt: date });
   };
 
 
@@ -59,9 +56,9 @@ const EditMinutes = () => {
       });
 
       // 에디터 업데이트 이벤트 핸들링
-      editor.on('update', ({ editor }) => {
-        console.log('Editor content updated: ', editor.getHTML());
-      });
+      // editor.on('update', ({ editor }) => {
+      //   console.log('Editor content updated: ', editor.getHTML());
+      // });
     }
   }, [editor, content]);
 
@@ -73,8 +70,6 @@ const EditMinutes = () => {
 
       setTitle(minutes.title);
       setContent(minutes.content);
-      console.log(minutes);
-
     } catch (error) {
       console.error(`${error}`);
     }

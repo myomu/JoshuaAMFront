@@ -2,7 +2,7 @@ import { CheckboxContext } from "./CheckboxContext";
 
 export function CheckboxGroup({ label, children, values, onChange }) {
     const isChecked = (value) => values.includes(value);
-  
+    //console.log(values);
     const toggleValue = ({ checked, value }) => {
       if (checked) {
         onChange(values.concat(value));

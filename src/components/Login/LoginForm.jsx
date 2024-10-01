@@ -1,16 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./LoginForm.css";
 import { LoginConfigContext } from "../../config/LoginConfigContextProvider";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { login, errorMessage } = useContext(LoginConfigContext);
-  // const [rememberUserId, setRememberUserId] = useState();
 
   const navigate = useNavigate();
 
   const toJoin = () => {
-    // console.log("test");
     navigate("/join");
   };
 

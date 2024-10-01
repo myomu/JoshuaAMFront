@@ -26,10 +26,9 @@ const CreateMinutes = () => {
     try {
       await minutesApi.createMinutes(form);
       window.location.replace("/minutes");
-      console.log("게시글 추가 성공");
     } catch (error) {
       console.error(`${error}`);
-      console.log("게시글 추가 실패");
+      alert("게시글 추가 실패");
     }
   };
 
@@ -44,20 +43,20 @@ const CreateMinutes = () => {
     const date = new Date();
     const content = editor.getHTML();
     createMinutes({ title, content, createdAt: date, userId });
-    console.log({ title, content, createdAt: date, userId });
   };
 
   const editor = useEditor({
     extensions: [StarterKit, ResizableImage, Highlight.configure({ multicolor: true })],
   });
 
-  useEffect(() => {
-    if (editor) {
-      editor.on('update', ({ editor }) => {
-        console.log('Editor content updated: ', editor.getHTML());
-      });
-    }
-  }, [editor]);
+  // 에디터 로그 테스트용
+  // useEffect(() => {
+  //   if (editor) {
+  //     editor.on('update', ({ editor }) => {
+  //       console.log('Editor content updated: ', editor.getHTML());
+  //     });
+  //   }
+  // }, [editor]);
 
   return (
     <div className="minutes__container">

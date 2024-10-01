@@ -12,7 +12,6 @@ import { AddOutlined, RemoveOutlined } from "@mui/icons-material";
 function Groups() {
   let navigate = useNavigate();
 
-  // const [groups, setGroups] = useState("");
   const [groupIds, setGroupIds] = useState([]);
 
   const columns = [
@@ -53,7 +52,6 @@ function Groups() {
       .map((id) => rows.find((row) => row.id === id))
       .filter(Boolean);
     const selectGroupIds = selectedData.map((row) => row.groupId);
-    console.log("selectMemberIds: ", selectGroupIds);
     setGroupIds(selectGroupIds);
   };
 
@@ -81,13 +79,12 @@ function Groups() {
   const deleteGroup = async (groupIds) => {
     try {
       await groupApi.deleteGroup({ groupIds });
-      Swal.alert("그룹 삭제 성공", "", "success", () => {
-        window.location.replace("/groups");
-      });
+      alert("그룹 삭제 성공");
+      window.location.replace("/groups");
     } catch (error) {
       console.error(`그룹 삭제에 실패하였습니다.`);
       console.error(`${error}`);
-      Swal.alert("그룹 삭제 실패", "", "error");
+      alert("그룹 삭제 실패");
     }
   };
 

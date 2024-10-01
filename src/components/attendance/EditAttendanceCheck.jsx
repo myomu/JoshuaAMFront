@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
 import * as attendanceApi from "../../apis/attendanceApi";
-import * as Swal from "../../apis/alert";
 
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -44,7 +43,6 @@ const EditAttendanceCheck = () => {
       setAttendanceDate(data.attendanceDate);
 
       const dateTime = dayjs.utc(data.attendanceDate).local();
-      console.log(dateTime);
       setSelectYear(dateTime.year());
       setSelectMonth(dateTime.month() + 1);
       setSelectDay(dateTime.date());
@@ -57,12 +55,15 @@ const EditAttendanceCheck = () => {
   const editAttendance = async (form) => {
     try {
       await attendanceApi.editAttendance(attendanceId, form);
-      Swal.alert("출석 수정 성공", "", "success", () => {
-        window.location.replace("/attendances");
-      });
+      alert("출석 수정 성공");
+      window.location.replace("/attendances");
+      // Swal.alert("출석 수정 성공", "", "success", () => {
+      //   window.location.replace("/attendances");
+      // });
     } catch (error) {
       console.error(`${error}`);
-      Swal.alert("출석 수정 실패", "", "error");
+      alert("출석 수정 실패");
+      // Swal.alert("출석 수정 실패", "", "error");
     }
   };
 
@@ -130,21 +131,19 @@ const EditAttendanceCheck = () => {
   if (!loading) {
     return (
       <div className="container">
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} className="attendance__check__form">
           <Card>
             <Card.Body>
-              <p>수동 날짜 입력</p>
+              <p style={{ marginBottom: "5px" }}>날짜 선택</p>
               <Form.Group>
                 <Form.Check
                   type="switch"
                   id="custom-switch"
                   label={
                     <span>
-                      날짜 입력
                       <small>
                         {" "}
-                        - 수동 입력을 하지 않을 시 기존의 날짜를 기준으로
-                        저장합니다.
+                        - 선택을 하지 않을 시 기존 날짜를 기준으로 저장합니다.
                       </small>
                     </span>
                   }
@@ -205,7 +204,7 @@ const EditAttendanceCheck = () => {
                   <div key={i}>
                     <Card className="mb-3">
                       <Card.Header>
-                        <p>{a.groupName}</p>
+                        <p style={{ marginBottom: "0" }}>{a.groupName}</p>
                       </Card.Header>
                       <Card.Body>
                         {a.members

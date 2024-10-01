@@ -95,9 +95,8 @@ const MinutesList = () => {
   const deleteMinutes = async (minutesIds) => {
     try {
       await minutesApi.deleteMinutes({ meetingMinutesIds : minutesIds });
-      Swal.alert("게시글 삭제 성공", "", "success", () => {
-        window.location.replace("/minutes");
-      });
+      alert("게시글 삭제 성공");
+      window.location.replace("/minutes");
     } catch (error) {
       console.error(`게시글 삭제에 실패하였습니다: ${error}`);
       alert("게시글 삭제 실패", "", "error");

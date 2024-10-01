@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, ButtonGroup, Col, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-// import { Button } from "@mui/material";
 import * as groupApi from "../../apis/groupApi";
-import * as Swal from "../../apis/alert";
 import "./CreateOrEditGroup.css";
 
 const EditGroup = () => {
@@ -35,12 +33,11 @@ const EditGroup = () => {
   const editGroup = async (form) => {
     try {
       await groupApi.editGroup(groupId, form);
-      Swal.alert("그룹 수정 성공", "", "success", () => {
-        window.location.replace("/groups");
-      })
+      alert("그룹 수정 성공");
+      window.location.replace("/groups");
     } catch (error) {
       console.error(`${error}`);
-      Swal.alert("그룹 수정 실패", "", "error");
+      alert("그룹 수정 실패");
     }
   };
 
@@ -102,19 +99,6 @@ const EditGroup = () => {
           </Form.Group>
         </Row>
 
-        {/* <Button variant="contained" type="submit" className="btnSave" style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}>
-          저장
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => {
-            navigate("/groups");
-          }}
-          className="btnCancel"
-          style={{ fontFamily: 'GangwonEdu_OTFBoldA' }}
-        >
-          취소
-        </Button> */}
         <ButtonGroup>
           <Button
             // variant="contained"

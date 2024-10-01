@@ -14,8 +14,6 @@ const JoinForm = ({ join }) => {
     const email = form.email.value;
     const authKey = form.authKey.value;
 
-    console.log(userLoginId, userPw, userName, email, authKey);
-
     join( { userLoginId, userPw, userName, email, authKey } );
   };
 

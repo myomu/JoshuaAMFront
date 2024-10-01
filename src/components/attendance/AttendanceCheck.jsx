@@ -4,7 +4,6 @@ import { Checkbox } from "../checkbox/Checkbox";
 import { CheckboxGroup } from "../checkbox/CheckboxGroup";
 import Header from "../Header/Header";
 import * as attendanceApi from "../../apis/attendanceApi";
-import * as Swal from "../../apis/alert";
 import dayjs from "dayjs";
 
 const AttendanceCheck = () => {
@@ -30,12 +29,12 @@ const AttendanceCheck = () => {
   const createAttendance = async (form) => {
     try {
       await attendanceApi.createAttendance(form);
-      Swal.alert("출석 추가 성공", "", "success", () => {
-        window.location.replace("/attendances");
-      });
+      alert("출석 추가 성공");
+      window.location.replace("/attendances");
+      
     } catch (error) {
       console.error(`${error}`);
-      Swal.alert("출석 추가 실패", "", "error");
+      alert("출석 추가 실패");
     }
   };
 
@@ -46,7 +45,6 @@ const AttendanceCheck = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); //페이지 리로드 방지.
     memberIds.sort();
-    console.log(memberIds);
 
     const year = parseInt(selectYear);
     const month = parseInt(selectMonth) - 1;

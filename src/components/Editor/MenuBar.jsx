@@ -11,7 +11,6 @@ const MenuBar = ({ editor }) => {
 
   const addImage = (files) => {
     const file = files[0];
-    console.log(file);
 
     if (file) {
       const reader = new FileReader();

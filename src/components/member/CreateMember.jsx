@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import * as memberApi from "../../apis/memberApi";
 import * as groupApi from "../../apis/groupApi";
 import dayjs from "dayjs";
-import * as Swal from "../../apis/alert";
 import "./CreateOrEditMember.css";
 
 const CreateMember = () => {
@@ -94,12 +93,11 @@ const CreateMember = () => {
   const createMember = async (form) => {
     try {
       await memberApi.createMember(form);
-      Swal.alert("회원 추가 성공", "", "success", () => {
-        window.location.replace("/members");
-      });
+      alert("회원 추가 성공");
+      window.location.replace("/members");
     } catch (error) {
       console.error(`${error}`);
-      Swal.alert("회원 추가 실패", "", "error");
+      alert("회원 추가 실패");
     }
   };
 

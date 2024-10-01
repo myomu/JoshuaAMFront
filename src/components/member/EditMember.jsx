@@ -3,7 +3,6 @@ import { Button, ButtonGroup, Col, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import * as memberApi from "../../apis/memberApi";
 import * as groupApi from "../../apis/groupApi";
-import * as Swal from "../../apis/alert";
 import dayjs from "dayjs";
 import "./CreateOrEditMember.css";
 
@@ -95,11 +94,9 @@ const EditMember = () => {
       const response = await memberApi.getEditMember(memberId);
       const data = response.data;
       const localDateTime = dayjs.utc(data.birthdate).local();
-      console.log(localDateTime.format("YYYY.MM.DD"));
 
       setName(data.name);
       setBirthdate(localDateTime.format("YYYY.MM.DD"));
-      // setBirthdate(response.data.birthdate.replaceAll("-", "."));
       setGender(data.gender);
       setGroup(data.groupId);
     } catch (error) {
@@ -110,12 +107,11 @@ const EditMember = () => {
   const editMember = async (form) => {
     try {
       await memberApi.editMember(memberId, form);
-      Swal.alert("회원 수정 성공", "", "success", () => {
-        window.location.replace("/members");
-      });
+      alert("회원 수정 성공");
+      window.location.replace("/members");
     } catch (error) {
       console.error(`${error}`);
-      Swal.alert("회원 수정 실패", "", "error");
+      alert("회원 수정 실패");
     }
   };
 
@@ -131,38 +127,30 @@ const EditMember = () => {
   // validation 체크 함수
   const validationCheck = () => {
     if (!name) {
-      // setNameIsValid(false);
       changeValid("name", false);
       return false;
     } else {
-      // setNameIsValid(true);
       changeValid("name", true);
     }
 
     if (birthdate.length <= 9 || !birthdateValidation()) {
-      // setBirthdateIsValid(false);
       changeValid("birthdate", false);
       return false;
     } else {
-      // setBirthdateIsValid(true);
       changeValid("birthdate", true);
     }
 
     if (!gender) {
-      // setGenderIsValid(false);
       changeValid("gender", false);
       return false;
     } else {
-      // setGenderIsValid(true);
       changeValid("gender", true);
     }
 
     if (!group) {
-      // setGroupIsValid(false);
       changeValid("group", false);
       return false;
     } else {
-      // setGroupIsValid(true);
       changeValid("group", true);
     }
 
@@ -178,10 +166,8 @@ const EditMember = () => {
     e.preventDefault(); //페이지 리로드 방지.
 
     const convertBirthdate = dayjs(birthdate, "YYYY.MM.DD").toDate();
-    // console.log({nameIsValid, birthdateIsValid, genderIsValid, groupIsValid});
     if (validationCheck()) {
       editMember({ name, birthdate: convertBirthdate, gender, group });
-      // console.log({name, birthdate: convertBirthdate, gender, group});
     }
   };
 
@@ -263,7 +249,8 @@ const EditMember = () => {
           <Form.Group as={Col} controlId="group">
             {/* <Form.Label>그룹</Form.Label> */}
             <Form.Select
-              value={group}
+              // group 값이 null 이면 에러가 발생. 이를 해결하기 위해 "" 을 추가.
+              value={group || ""}
               onChange={groupChange}
               required
               isInvalid={!isValid.group}
