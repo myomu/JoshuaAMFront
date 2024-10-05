@@ -26,6 +26,7 @@
     "bootstrap-icons": "^1.11.3",
     "dayjs": "^1.11.11",
     "dompurify": "^3.1.6",
+    "file-saver": "^2.0.5",
     "http-proxy-middleware": "^2.0.6",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
@@ -52,7 +53,8 @@
     "workbox-range-requests": "^6.6.0",
     "workbox-routing": "^6.6.0",
     "workbox-strategies": "^6.6.0",
-    "workbox-streams": "^6.6.0"
+    "workbox-streams": "^6.6.0",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,14 +2,27 @@ import React, { useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import { Button } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
-import { DataGrid, GridToolbarContainer } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import * as memberApi from "../../apis/memberApi";
 import * as Swal from "../../apis/alert";
 import "./MemberList.css";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { AddOutlined, RemoveOutlined } from "@mui/icons-material";
+import {
+  AddOutlined,
+  FileDownload,
+  RemoveOutlined,
+  SaveAltOutlined,
+  SaveAltRounded,
+  SaveAltSharp,
+} from "@mui/icons-material";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 dayjs.extend(utc);
 
 const MemberList = () => {
@@ -229,7 +242,12 @@ const MemberList = () => {
         disableColumnMenu
         slots={{
           toolbar: () => (
-            <CustomToolbar memberIds={memberIds} deleteMember={deleteMember} />
+            <CustomToolbar
+              memberIds={memberIds}
+              deleteMember={deleteMember}
+              rows={rows}
+              columns={columns}
+            />
           ),
         }}
         initialState={{
@@ -266,12 +284,43 @@ const MemberList = () => {
 
 export default MemberList;
 
-const CustomToolbar = ({ memberIds, deleteMember }) => {
+const CustomToolbar = ({ memberIds, deleteMember, rows, columns }) => {
   const navigate = useNavigate();
+
+  const handleExport = () => {
+    // 선택된 행마 ㄴ내보내기
+    const exportRows = memberIds.length
+      ? rows.filter((row) => memberIds.includes(row.memberId))
+      : rows;
+
+    const exportData = exportRows.map((row) =>
+      columns.reduce((acc, column) => {
+        acc[column.headerName] = row[column.field];
+        return acc;
+      }, {})
+    );
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Members");
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const dataBlob = new Blob([excelBuffer], {
+      type: "application/octet-stream",
+    });
+    saveAs(dataBlob, "회원_목록.xlsx");
+  };
 
   return (
     <GridToolbarContainer>
       {/* <GridToolbarExport /> */}
+      <Button onClick={handleExport}>
+        <SaveAltOutlined style={{ marginRight: "3px", fontSize: "1.2rem"}}/>
+        내보내기
+      </Button>
       <Button onClick={() => navigate("create")}>
         <AddOutlined />
         회원추가
