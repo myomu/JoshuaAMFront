@@ -43,8 +43,6 @@ const AttendanceList = () => {
       minWidth: 400,
       flex: 3,
       renderCell: (params) => {
-        // const names = params.value.map((member) => member.memberName).join("     ");
-        // return <span>{names}</span>
         return (
           <Box
             sx={{
@@ -99,12 +97,26 @@ const AttendanceList = () => {
   ];
 
   const [rows, setRows] = useState([]);
+  const [rowCount, setRowCount] = useState(0); // 총 데이터 개수
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10
+  });
+
+  const [sortModel, setSortModel] = useState([
+    { field: 'attendanceDate', sort: 'desc'}
+  ]);
+
+  const handleSortModelChange = (newSortModel) => {
+    setSortModel(newSortModel);
+  };
+
 
   // 출석 목록 요청
-  const getAttendances = async () => {
+  const getAttendances = async (paginationModel, sortField, sortDirection) => {
     try {
-      const response = await attendanceApi.getAttendances();
-      const attendances = response.data;
+      const response = await attendanceApi.getAttendances(paginationModel.page, paginationModel.pageSize, sortField, sortDirection);
+      const attendances = response.data.content;
       setRows(
         attendances &&
           attendances.map((data, idx) => {
@@ -114,6 +126,7 @@ const AttendanceList = () => {
             };
           })
       );
+      setRowCount(response.data.totalElements);
     } catch (error) {
       console.error(`출석 목록을 불러오는데 실패했습니다.`);
       console.error(`${error}`);
@@ -124,8 +137,6 @@ const AttendanceList = () => {
   const deleteAttendance = async (attendanceIds) => {
     try {
       await attendanceApi.deleteAttendance({ attendanceIds });
-      // alert("회원 삭제에 성공하였습니다.");
-      // window.location.replace("/members");
       alert("출석 삭제 성공");
       window.location.replace("/attendances");
     } catch (error) {
@@ -136,8 +147,8 @@ const AttendanceList = () => {
   };
 
   useEffect(() => {
-    getAttendances();
-  }, []);
+    getAttendances(paginationModel, sortModel[0]?.field, sortModel[0]?.sort);
+  }, [paginationModel, sortModel]);
 
   return (
     <>
@@ -150,9 +161,6 @@ const AttendanceList = () => {
           handleSelectAttendance(selection);
         }}
         disableColumnMenu
-        // slotProps={{
-        //   toolbar: { csvOptions: { fields: ["name", "birthdate", "gender", "groupName", "memberStatus", "attendanceRate"]}}
-        // }}
         slots={{
           toolbar: () => (
             <CustomToolbar
@@ -161,15 +169,16 @@ const AttendanceList = () => {
             />
           ),
         }}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-            },
-          },
-        }}
-        pageSizeOptions={[10, 25, 50]}
+        pagination
+        paginationMode="server"
+        rowCount={rowCount}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        sortingMode="server"
+        sortModel={sortModel}
+        onSortModelChange={handleSortModelChange}
         autoHeight
+        pageSizeOptions={[10, 25, 50]}
         sx={{
           "& .MuiDataGrid-cellCheckbox:focus-within": { outline: "none" },
           "& .MuiDataGrid-cell:focus": { outline: "none" },
@@ -187,7 +196,6 @@ const AttendanceList = () => {
             fontFamily: "GangwonEdu_OTFBoldA, Arial, sans-serif", // 데이터 셀 폰트
           },
         }}
-        pagination
       />
       <br></br>
     </>
